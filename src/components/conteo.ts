@@ -5,13 +5,33 @@ export function renderConteo(): string {
       
       <div class="glass-panel" style="margin-bottom: 2rem;">
         <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
-          Las técnicas de conteo nos permiten saber cuántas combinaciones u opciones distintas tiene el usuario a nivel de Interacción Humano-Computadora (HCI), y prever la carga de posibles variables en la arquitectura de la base de datos.
+          Las técnicas de conteo nos permiten saber cuántas opciones distintas tiene el usuario a nivel de Interfaz de Usuario (UI) y prever la carga de posibles variables en la arquitectura de la base de datos.
         </p>
 
-        <ul style="color: var(--text-secondary); margin-bottom: 2rem; padding-left: 1.5rem;">
-          <li><strong>Principio Multiplicativo (Y):</strong> Acciones secuenciales que componen un resultado. Ejemplo: Roles (2) × Facultades (6) × Modalidades (2) = 24 perfiles.</li>
-          <li><strong>Principio Aditivo (O):</strong> Alternativas para desarrollar una actividad (eventos excluyentes).</li>
-        </ul>
+        <h3>3.1 Principio Multiplicativo (Y)</h3>
+        
+        <div style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem;">
+          <strong style="color: #3b82f6;">Utilidad Práctica (Límites en Base de Datos):</strong><br>
+          <span style="color: var(--text-secondary); font-size: 0.9rem;">Permite calcular de antemano el límite máximo de combinaciones de configuraciones (perfiles, filtros) que el sistema debe soportar, ayudando a dimensionar la base de datos y evitar desbordamientos de diseño en la UI.</span>
+        </div>
+
+        <div style="background: rgba(168, 85, 247, 0.1); border-left: 4px solid #a855f7; padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem;">
+          <strong style="color: #a855f7;">Explicación Matemática:</strong><br>
+          <span style="color: var(--text-secondary); font-size: 0.9rem;">
+            Se usa cuando eventos ocurren de forma secuencial. Un usuario al registrarse elige un rol (n₁), una facultad (n₂) y una modalidad (n₃). Hay 2 roles, 6 facultades y 2 modalidades. Total de configuraciones en la BD: n₁ × n₂ × n₃ = 2 × 6 × 2 = 24.
+          </span>
+        </div>
+
+        <div style="background: #000; padding: 1rem; border-radius: 8px; font-family: monospace; color: var(--text-secondary); margin-bottom: 1.5rem; border: 1px solid rgba(255,255,255,0.1);">
+          <span style="color: #c678dd;">int</span> <span style="color: #61afef;">calcularCombinacionesDePerfiles</span>() {<br>
+          &nbsp;&nbsp;<span style="color: #e5c07b;">List</span>&lt;<span style="color: #e5c07b;">String</span>&gt; roles = [<span style="color: #98c379;">'Estudiante'</span>, <span style="color: #98c379;">'Tutor'</span>];<br>
+          &nbsp;&nbsp;<span style="color: #e5c07b;">List</span>&lt;<span style="color: #e5c07b;">String</span>&gt; facs = [<span style="color: #98c379;">'FISC'</span>, <span style="color: #98c379;">'FIM'</span>, <span style="color: #98c379;">'FIC'</span>, <span style="color: #98c379;">'FIE'</span>, <span style="color: #98c379;">'FIPI'</span>, <span style="color: #98c379;">'FCyT'</span>];<br>
+          &nbsp;&nbsp;<span style="color: #e5c07b;">List</span>&lt;<span style="color: #e5c07b;">String</span>&gt; mods = [<span style="color: #98c379;">'Presencial'</span>, <span style="color: #98c379;">'Virtual'</span>];<br>
+          <br>
+          &nbsp;&nbsp;<span style="color: #64748b;">// Principio Multiplicativo</span><br>
+          &nbsp;&nbsp;<span style="color: #c678dd;">return</span> roles.<span style="color: #e5c07b;">length</span> * facs.<span style="color: #e5c07b;">length</span> * mods.<span style="color: #e5c07b;">length</span>; <span style="color: #64748b;">// 24</span><br>
+          }
+        </div>
 
         <!-- Interactividad: Conteo Multiplicativo -->
         <div style="background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-glass); margin-bottom: 2rem;">
@@ -61,20 +81,29 @@ export function renderConteo(): string {
         </div>
 
         <!-- Expansión: Permutaciones vs Combinaciones -->
-        <h4 style="margin-bottom: 1.5rem;">Permutaciones vs Combinaciones (Análisis en Base de Datos)</h4>
-        <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
-          <div style="flex: 1; min-width: 280px;">
-            <div style="background: rgba(139, 92, 246, 0.1); border-left: 4px solid var(--accent-primary); padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1rem;">
-              <strong style="color: var(--accent-primary);">Utilidad (Permutaciones - nPr):</strong><br>
-              <strong>El orden importa.</strong> Asignación de permisos a roles únicos. Ejemplo: 5 tutores disponibles y 3 roles a asignar (Moderador, Respondedor, Observador). Si el Tutor A es Moderador, es un estado distinto a que sea Observador.
-            </div>
-          </div>
-          <div style="flex: 1; min-width: 280px;">
-            <div style="background: rgba(6, 182, 212, 0.1); border-left: 4px solid var(--accent-secondary); padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1rem;">
-              <strong style="color: var(--accent-secondary);">Utilidad (Combinaciones - nCr):</strong><br>
-              <strong>El orden NO importa.</strong> Creación de grupos de estudio cerrados en la plataforma. Ejemplo: Seleccionar 3 alumnos de 5 disponibles. El grupo {A, B, C} es exactamente igual al grupo {C, B, A}.
-            </div>
-          </div>
+        <h3 style="margin-top: 3rem; margin-bottom: 1.5rem;">3.2 Principio Aditivo y Combinatoria</h3>
+        
+        <div style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem;">
+          <strong style="color: #3b82f6;">Utilidad Práctica (Emparejamiento / Matchmaking):</strong><br>
+          <span style="color: var(--text-secondary); font-size: 0.9rem;">Optimiza la asignación de cupos y grupos al conocer la cantidad exacta de opciones excluyentes y agrupaciones posibles, fundamental para programar los algoritmos de emparejamiento.</span>
+        </div>
+
+        <div style="background: rgba(168, 85, 247, 0.1); border-left: 4px solid #a855f7; padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem;">
+          <strong style="color: #a855f7;">Explicación Matemática:</strong><br>
+          <span style="color: var(--text-secondary); font-size: 0.9rem;">
+            <ul style="margin-top: 0.5rem; margin-bottom: 0; padding-left: 1.5rem;">
+              <li><strong>Principio Aditivo (O):</strong> Eventos excluyentes. 4 opciones de Álgebra o 3 de Prog = 7 opciones totales en pantalla.</li>
+              <li><strong>Combinaciones (nCr):</strong> El orden NO importa. Formar grupos de estudio de 4 alumnos de un aula de 10: 10C4 = 210 posibles.</li>
+              <li><strong>Permutaciones (nPr):</strong> El orden SÍ importa. Asignar 3 tutores a 3 aulas físicas distintas: 3P3 = 6.</li>
+            </ul>
+          </span>
+        </div>
+
+        <div style="background: #000; padding: 1rem; border-radius: 8px; font-family: monospace; color: var(--text-secondary); margin-bottom: 1.5rem; border: 1px solid rgba(255,255,255,0.1);">
+          <span style="color: #c678dd;">int</span> <span style="color: #61afef;">calcularOpcionesAditivas</span>(<span style="color: #e5c07b;">List</span>&lt;<span style="color: #e5c07b;">String</span>&gt; algebra, <span style="color: #e5c07b;">List</span>&lt;<span style="color: #e5c07b;">String</span>&gt; prog) {<br>
+          &nbsp;&nbsp;<span style="color: #64748b;">// Principio Aditivo: El estudiante escoge uno O el otro</span><br>
+          &nbsp;&nbsp;<span style="color: #c678dd;">return</span> algebra.<span style="color: #e5c07b;">length</span> + prog.<span style="color: #e5c07b;">length</span>;<br>
+          }
         </div>
 
         <div style="background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-glass); margin-top: 1rem;">

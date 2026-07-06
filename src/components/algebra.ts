@@ -4,19 +4,33 @@ export function renderAlgebra(): string {
       <h2 class="section-title">6. Estructuras Algebraicas</h2>
       
       <div class="glass-panel" style="margin-bottom: 2rem;">
-        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
-          Para el sistema de tickets de quejas, Vecta cuenta con 4 Administradores de TI que rotan turnos (A = {0, 1, 2, 3}). 
-          Para evitar ciclos condicionales, el algoritmo utiliza una <strong>Suma Modular en base 4 (Z₄)</strong>: 
-          <span style="color: white; font-family: monospace;">a ⊕ b = (a + b) mod 4</span>
-        </p>
+        <h3 style="margin-bottom: 1.5rem; color: white;">6.1 Estructuras Algebraicas (Grupo Abeliano Z₄)</h3>
+        
+        <div style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem;">
+          <strong style="color: #3b82f6;">Utilidad Práctica (Rotación de Turnos):</strong><br>
+          <span style="color: var(--text-secondary); font-size: 0.9rem;">Para el sistema de tickets, Vecta cuenta con 4 Administradores que rotan turnos (A = {0, 1, 2, 3}). El uso de Grupos Abelianos (aritmética modular) evita múltiples sentencias if/else y OutOfBounds Exceptions al delegar tareas.</span>
+        </div>
 
-        <ul style="color: var(--text-secondary); margin-bottom: 2rem; padding-left: 1.5rem;">
-          <li><strong>Operación Cerrada:</strong> Resultados pertenecen al conjunto original. (Nunca sale del turno 0 al 3).</li>
-          <li><strong>Semigrupo:</strong> Es Asociativa.</li>
-          <li><strong>Monoide:</strong> Existe Elemento Neutro (e=0, no rotar turno).</li>
-          <li><strong>Grupo:</strong> Existe Elemento Inverso (Para avanzar 1 turno, el inverso es avanzar 3 turnos: 1+3=0).</li>
-          <li><strong>Grupo Abeliano:</strong> Es Conmutativa. (Orden independiente).</li>
-        </ul>
+        <div style="background: rgba(168, 85, 247, 0.1); border-left: 4px solid #a855f7; padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem;">
+          <strong style="color: #a855f7;">Explicación Matemática:</strong><br>
+          <span style="color: var(--text-secondary); font-size: 0.9rem;">
+            Se utiliza una Suma Modular en base 4: <span style="color: white; font-family: monospace;">a ⊕ b = (a + b) mod 4</span>. Esto cumple con:
+            <ul style="margin-top: 0.5rem; margin-bottom: 0; padding-left: 1.5rem;">
+              <li><strong>Operación Cerrada:</strong> Nunca sale del turno 0 al 3.</li>
+              <li><strong>Semigrupo:</strong> Es Asociativa.</li>
+              <li><strong>Monoide:</strong> Elemento Neutro (e=0, no rotar turno).</li>
+              <li><strong>Grupo:</strong> Elemento Inverso (Para avanzar 1 turno, el inverso es avanzar 3 turnos: 1+3=4=0).</li>
+              <li><strong>Grupo Abeliano:</strong> Es Conmutativa. El orden de delegación no altera el resultado.</li>
+            </ul>
+          </span>
+        </div>
+
+        <div style="background: #000; padding: 1rem; border-radius: 8px; font-family: monospace; color: var(--text-secondary); margin-bottom: 3rem; border: 1px solid rgba(255,255,255,0.1);">
+          <span style="color: #c678dd;">int</span> <span style="color: #61afef;">rotarTurnoAdministrador</span>(<span style="color: #c678dd;">int</span> turnoActual, <span style="color: #c678dd;">int</span> delegacion) {<br>
+          &nbsp;&nbsp;<span style="color: #64748b;">// Operación a ⊕ b = (a + b) (mod 4)</span><br>
+          &nbsp;&nbsp;<span style="color: #c678dd;">return</span> (turnoActual + delegacion) % <span style="color: #d19a66;">4</span>;<br>
+          }
+        </div>
 
         <!-- Interactividad: Rueda de Suma Modular -->
         <div style="background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-glass);">

@@ -4,16 +4,31 @@ export function renderGrafos(): string {
       <h2 class="section-title">4. Grafos Dirigidos y Relaciones</h2>
       
       <div class="glass-panel" style="margin-bottom: 2rem;">
-        <h3>4.1 - 4.5 Grafos y Análisis de Flujo</h3>
-        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
-          Un dígrafo (grafo dirigido) representa gráficamente las relaciones de un conjunto A. 
-        </p>
+        <h3>4.1 Análisis de Flujo mediante Dígrafos</h3>
+        
+        <div style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem;">
+          <strong style="color: #3b82f6;">Utilidad Práctica (Análisis de Comunidad):</strong><br>
+          <span style="color: var(--text-secondary); font-size: 0.9rem;">Visualizar las relaciones como grafos dirigidos nos permite analizar el comportamiento en el Dashboard Administrativo. Calcular el Grado Interno previene manipulaciones artificiales en el ranking de tutores. Calcular el Grado Externo permite detectar cuentas inactivas o bots (spam).</span>
+        </div>
 
-        <ul style="color: var(--text-secondary); margin-bottom: 2rem; padding-left: 1.5rem;">
-          <li><strong>Grado Interno (deg⁻):</strong> Número de arcos que entran al vértice (Reputación).</li>
-          <li><strong>Grado Externo (deg⁺):</strong> Número de arcos que salen del vértice (Actividad).</li>
-          <li><strong>Teorema del Apretón de Manos:</strong> Σ deg⁺ = Σ deg⁻ = |R|</li>
-        </ul>
+        <div style="background: rgba(168, 85, 247, 0.1); border-left: 4px solid #a855f7; padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem;">
+          <strong style="color: #a855f7;">Explicación Matemática:</strong><br>
+          <span style="color: var(--text-secondary); font-size: 0.9rem;">
+            Un dígrafo consiste en vértices (usuarios) y arcos dirigidos (relaciones).
+            <ul style="margin-top: 0.5rem; margin-bottom: 0; padding-left: 1.5rem;">
+              <li><strong>Grado Interno (deg⁻):</strong> Arcos que entran (Reputación). deg⁻(v) = |{u ∈ V | (u,v) ∈ R}|</li>
+              <li><strong>Grado Externo (deg⁺):</strong> Arcos que salen (Actividad). deg⁺(v) = |{u ∈ V | (v,u) ∈ R}|</li>
+              <li><strong>Teorema del Apretón de Manos:</strong> Σ deg⁺ = Σ deg⁻ = |R|</li>
+            </ul>
+          </span>
+        </div>
+
+        <div style="background: #000; padding: 1rem; border-radius: 8px; font-family: monospace; color: var(--text-secondary); margin-bottom: 1.5rem; border: 1px solid rgba(255,255,255,0.1);">
+          <span style="color: #c678dd;">int</span> <span style="color: #61afef;">calcularGradoInterno</span>(<span style="color: #e5c07b;">String</span> tutorId, <span style="color: #e5c07b;">List</span>&lt;<span style="color: #e5c07b;">Map</span>&gt; rels) {<br>
+          &nbsp;&nbsp;<span style="color: #64748b;">// Equivalente a deg⁻(v): Contar cuántos arcos apuntan a este tutor</span><br>
+          &nbsp;&nbsp;<span style="color: #c678dd;">return</span> rels.<span style="color: #56b6c2;">where</span>((r) =&gt; r[<span style="color: #98c379;">'destino'</span>] == tutorId).<span style="color: #e5c07b;">length</span>;<br>
+          }
+        </div>
 
         <!-- Interactividad: Dígrafos y Matriz -->
         <div style="background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-glass);">
@@ -74,10 +89,34 @@ export function renderGrafos(): string {
 
       <!-- 4.6 Carrusel Propiedades -->
       <div class="glass-panel">
-        <h3>4.6 Propiedades de las Relaciones</h3>
-        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
-          Representación visual de las propiedades fundamentales a través de grafos y matrices, aplicadas a reglas de negocio.
-        </p>
+        <h3>4.2 Relaciones Fundamentales y sus Propiedades</h3>
+        
+        <div style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem;">
+          <strong style="color: #3b82f6;">Utilidad Práctica (Reglas de Negocio):</strong><br>
+          <span style="color: var(--text-secondary); font-size: 0.9rem;">Las propiedades matemáticas definen el comportamiento de las reglas del software. Si una relación es antisimétrica, se evitan reportes vengativos. Si es transitiva, se pueden programar motores de prerrequisitos académicos.</span>
+        </div>
+
+        <div style="background: rgba(168, 85, 247, 0.1); border-left: 4px solid #a855f7; padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem;">
+          <strong style="color: #a855f7;">Explicación Matemática:</strong><br>
+          <span style="color: var(--text-secondary); font-size: 0.9rem;">
+            Sea R una relación sobre A:
+            <ul style="margin-top: 0.5rem; margin-bottom: 0; padding-left: 1.5rem;">
+              <li><strong>Irreflexiva:</strong> ∀x ∈ A, (x,x) ∉ R. (Ej. un tutor no puede auto-reservarse).</li>
+              <li><strong>Antisimétrica:</strong> Si (x,y) ∈ R ⇒ (y,x) ∉ R. Flechas en un sentido.</li>
+              <li><strong>Transitiva:</strong> (x,y) ∈ R ∧ (y,z) ∈ R ⇒ (x,z) ∈ R.</li>
+              <li><strong>Simétrica:</strong> (x,y) ∈ R ⇒ (y,x) ∈ R. Bidireccionalidad.</li>
+              <li><strong>De Equivalencia:</strong> Reflexiva, Simétrica y Transitiva. Particiones.</li>
+            </ul>
+          </span>
+        </div>
+
+        <div style="background: #000; padding: 1rem; border-radius: 8px; font-family: monospace; color: var(--text-secondary); margin-bottom: 1.5rem; border: 1px solid rgba(255,255,255,0.1);">
+          <span style="color: #c678dd;">bool</span> <span style="color: #61afef;">esAntisimetrica</span>(<span style="color: #e5c07b;">String</span> a, <span style="color: #e5c07b;">String</span> b, <span style="color: #e5c07b;">List</span>&lt;<span style="color: #e5c07b;">Map</span>&gt; reps) {<br>
+          &nbsp;&nbsp;<span style="color: #c678dd;">bool</span> aRb = reps.<span style="color: #56b6c2;">any</span>((r) =&gt; r[<span style="color: #98c379;">'o'</span>] == a &amp;&amp; r[<span style="color: #98c379;">'d'</span>] == b);<br>
+          &nbsp;&nbsp;<span style="color: #c678dd;">bool</span> bRa = reps.<span style="color: #56b6c2;">any</span>((r) =&gt; r[<span style="color: #98c379;">'o'</span>] == b &amp;&amp; r[<span style="color: #98c379;">'d'</span>] == a);<br>
+          &nbsp;&nbsp;<span style="color: #c678dd;">return</span> !(aRb &amp;&amp; bRa); <span style="color: #64748b;">// Si A reporta a B, B no puede a A</span><br>
+          }
+        </div>
 
         <div style="background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-glass); position: relative;">
           

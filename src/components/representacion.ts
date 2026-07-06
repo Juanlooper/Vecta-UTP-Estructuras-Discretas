@@ -9,57 +9,34 @@ export function renderRepresentacion(): string {
         </p>
       </div>
       
-      <!-- Top Cards -->
-      <div style="display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 3rem;">
-        
-        <!-- Card 1: Problema -->
-        <div style="flex: 1; min-width: 300px; background: rgba(0,0,0,0.3); border: 1px solid rgba(234, 179, 8, 0.3); border-radius: 12px; padding: 2rem; position: relative;">
-          <div style="color: #eab308; font-weight: bold; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; text-transform: uppercase; font-size: 0.9rem;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-            Problema Práctico
-          </div>
-          <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 2rem; line-height: 1.6;">
-            Contabilizar eficientemente las inasistencias y penalizaciones ("strikes") de los alumnos a las clases programadas por los tutores.
-          </p>
-          <div style="color: rgba(255,255,255,0.4); font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; position: absolute; bottom: 2rem; width: calc(100% - 4rem);">
-            Reto: Evitar consultar y unir millones de documentos históricos cada vez que se requiere auditar el estado de un alumno.
-          </div>
-        </div>
+      <div style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem;">
+        <strong style="color: #3b82f6;">Utilidad Práctica:</strong><br>
+        <span style="color: var(--text-secondary); font-size: 0.9rem;">Contabilizar de forma eficiente las inasistencias y penalizaciones ("strikes") a tutorías. Almacenar asistencias en matrices booleanas permite consultarlas en O(1), reduciendo lecturas a Firestore.</span>
+      </div>
 
-        <!-- Card 2: Por qué se aplica -->
-        <div style="flex: 1; min-width: 300px; background: rgba(0,0,0,0.3); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 12px; padding: 2rem; position: relative;">
-          <div style="color: #3b82f6; font-weight: bold; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; text-transform: uppercase; font-size: 0.9rem;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-            Por qué se aplica
-          </div>
-          <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 2rem; line-height: 1.6;">
-            La representación en matrices booleanas permite almacenar e interrogar las asistencias en tiempo real con un costo computacional de O(1). Es mucho más rápido sumar los bits de un array indexado que consultar logs históricos completos en colecciones no estructuradas.
-          </p>
-          <div style="color: rgba(255,255,255,0.4); font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; position: absolute; bottom: 2rem; width: calc(100% - 4rem);">
-            Beneficio: Escalabilidad y minimización drástica de lecturas en Firestore.
-          </div>
-        </div>
+      <div style="background: rgba(168, 85, 247, 0.1); border-left: 4px solid #a855f7; padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem;">
+        <strong style="color: #a855f7;">Explicación Matemática:</strong><br>
+        <span style="color: var(--text-secondary); font-size: 0.9rem;">
+          Matriz de relación M<sub>R</sub> = [m<sub>ij</sub>] de tamaño n × m, donde el alumno i y clase j tiene: m<sub>ij</sub> ∈ {0, 1}.<br>
+          La inasistencia (strikes) del estudiante i a lo largo de m clases es:<br>
+          Strikes<sub>i</sub> = Σ<sub>j=1</sub><sup>m</sup> (1 - m<sub>ij</sub>)
+        </span>
+      </div>
 
-        <!-- Card 3: Sustento -->
-        <div style="flex: 1; min-width: 300px; background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 2rem;">
-          <div style="color: #10b981; font-weight: bold; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; text-transform: uppercase; font-size: 0.9rem;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-            Sustento Matemático
-          </div>
-          <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.6;">
-            Definimos la Matriz de Relación M<sub>R</sub> = [m<sub>ij</sub>] de tamaño n × m, donde para el alumno i y clase j:
-          </p>
-          <div style="background: rgba(0,0,0,0.5); padding: 0.8rem; border-radius: 6px; text-align: center; font-family: monospace; font-size: 1rem; color: #10b981; margin-bottom: 1rem;">
-            m<sub>ij</sub> ∈ {0, 1}
-          </div>
-          <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.6;">
-            La inasistencia total (strikes) del alumno i a lo largo de m clases se expresa como:
-          </p>
-          <div style="background: rgba(0,0,0,0.5); padding: 0.8rem; border-radius: 6px; text-align: center; font-family: monospace; font-size: 1rem; color: #10b981;">
-            Strikes<sub>i</sub> = Σ<sub>j=1</sub><sup>m</sup> (1 - m<sub>ij</sub>)
-          </div>
-        </div>
-
+      <div style="background: #000; padding: 1rem; border-radius: 8px; font-family: monospace; color: var(--text-secondary); margin-bottom: 3rem; border: 1px solid rgba(255,255,255,0.1);">
+        <span style="color: #c678dd;">List</span>&lt;<span style="color: #e5c07b;">List</span>&lt;<span style="color: #e5c07b;">int</span>&gt;&gt; <span style="color: #61afef;">generarMatrizAsistencia</span>(<span style="color: #e5c07b;">List</span>&lt;<span style="color: #e5c07b;">String</span>&gt; alumnos, <span style="color: #e5c07b;">List</span>&lt;<span style="color: #e5c07b;">String</span>&gt; clases, <span style="color: #e5c07b;">Map</span> datos) {<br>
+        &nbsp;&nbsp;<span style="color: #e5c07b;">List</span>&lt;<span style="color: #e5c07b;">List</span>&lt;<span style="color: #e5c07b;">int</span>&gt;&gt; matriz = [];<br>
+        &nbsp;&nbsp;<span style="color: #c586c0;">for</span> (<span style="color: #c678dd;">var</span> alumno <span style="color: #c586c0;">in</span> alumnos) {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #e5c07b;">List</span>&lt;<span style="color: #e5c07b;">int</span>&gt; fila = [];<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">for</span> (<span style="color: #c678dd;">var</span> clase <span style="color: #c586c0;">in</span> clases) {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #64748b;">// 1 = Asistió, 0 = Inasistencia</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c678dd;">bool</span> asistio = datos[clase][alumno] ?? <span style="color: #d19a66;">false</span>;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fila.<span style="color: #56b6c2;">add</span>(asistio ? <span style="color: #d19a66;">1</span> : <span style="color: #d19a66;">0</span>);<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;matriz.<span style="color: #56b6c2;">add</span>(fila);<br>
+        &nbsp;&nbsp;}<br>
+        &nbsp;&nbsp;<span style="color: #c586c0;">return</span> matriz;<br>
+        }
       </div>
 
       <!-- Bottom Layout: Ejemplo Práctico -->

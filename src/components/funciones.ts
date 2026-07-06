@@ -9,137 +9,60 @@ export function renderFunciones(): string {
         </p>
 
         <!-- Teoría de Funciones y Biyecciones -->
-        <h3 style="margin-bottom: 1.5rem; color: white;">5.1 Tipos de Funciones y Aplicación Biyectiva</h3>
-        <div style="display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 3rem;">
-          
-          <div style="flex: 1; min-width: 280px; display: flex; flex-direction: column; gap: 1rem;">
-            <!-- Inyectiva -->
-            <div style="background: rgba(0,0,0,0.3); border-left: 3px solid #3b82f6; padding: 1.5rem; border-radius: 0 8px 8px 0; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
-              <div style="flex: 1; min-width: 150px;">
-                <h5 style="color: #3b82f6; margin-bottom: 0.5rem;">1. Inyectiva (Uno a Uno)</h5>
-                <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.5rem;">
-                  <strong>Definición:</strong> f(x₁) = f(x₂) ⇒ x₁ = x₂.<br>Diferentes elementos de A tienen diferentes imágenes en B.
-                </p>
-                <p style="color: rgba(255,255,255,0.7); font-size: 0.8rem; margin: 0;">
-                  <strong>Software:</strong> Asignación de UUIDs. Dos usuarios distintos jamás pueden recibir el mismo UUID.
-                </p>
-              </div>
-              <div style="background: rgba(0,0,0,0.5); border-radius: 8px; padding: 1rem;">
-                <svg width="120" height="120" viewBox="0 0 120 120">
-                  <defs>
-                    <marker id="arrow-blue" markerWidth="6" markerHeight="6" refX="14" refY="3" orient="auto"><polygon points="0 0, 6 3, 0 6" fill="#3b82f6" /></marker>
-                  </defs>
-                  <!-- Set A -->
-                  <ellipse cx="30" cy="60" rx="20" ry="50" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4"/>
-                  <circle cx="30" cy="30" r="4" fill="white"/><text x="20" y="34" fill="white" font-size="10">1</text>
-                  <circle cx="30" cy="60" r="4" fill="white"/><text x="20" y="64" fill="white" font-size="10">2</text>
-                  <circle cx="30" cy="90" r="4" fill="white"/><text x="20" y="94" fill="white" font-size="10">3</text>
-                  
-                  <!-- Set B -->
-                  <ellipse cx="90" cy="60" rx="20" ry="50" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4"/>
-                  <circle cx="90" cy="20" r="4" fill="#3b82f6"/><text x="100" y="24" fill="white" font-size="10">A</text>
-                  <circle cx="90" cy="45" r="4" fill="#3b82f6"/><text x="100" y="49" fill="white" font-size="10">B</text>
-                  <circle cx="90" cy="75" r="4" fill="#3b82f6"/><text x="100" y="79" fill="white" font-size="10">C</text>
-                  <circle cx="90" cy="100" r="4" fill="#64748b"/><text x="100" y="104" fill="#64748b" font-size="10">D</text>
+        <h3 style="margin-bottom: 1.5rem; color: white;">5.1 Tipos de Funciones</h3>
+        <div style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem;">
+          <strong style="color: #3b82f6;">Utilidad Práctica (Mapeo de Datos):</strong><br>
+          <span style="color: var(--text-secondary); font-size: 0.9rem;">Las funciones garantizan el determinismo. La biyección asegura que los Tokens de Sesión (JWT) mapeen de forma única a un usuario y viceversa.</span>
+        </div>
 
-                  <!-- Arrows -->
-                  <line x1="30" y1="30" x2="90" y2="45" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
-                  <line x1="30" y1="60" x2="90" y2="20" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
-                  <line x1="30" y1="90" x2="90" y2="75" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
-                </svg>
-              </div>
-            </div>
-            
-            <!-- Suprayectiva -->
-            <div style="background: rgba(0,0,0,0.3); border-left: 3px solid #a855f7; padding: 1.5rem; border-radius: 0 8px 8px 0; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
-              <div style="flex: 1; min-width: 150px;">
-                <h5 style="color: #a855f7; margin-bottom: 0.5rem;">2. Suprayectiva (Sobreyectiva)</h5>
-                <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.5rem;">
-                  <strong>Definición:</strong> ∀y ∈ B, ∃x ∈ A tal que f(x) = y.<br>El rango cubre todo el codominio.
-                </p>
-                <p style="color: rgba(255,255,255,0.7); font-size: 0.8rem; margin: 0;">
-                  <strong>Software:</strong> Facultades. Todo departamento (y) debe tener al menos un estudiante (x) asignado.
-                </p>
-              </div>
-              <div style="background: rgba(0,0,0,0.5); border-radius: 8px; padding: 1rem;">
-                <svg width="120" height="120" viewBox="0 0 120 120">
-                  <defs>
-                    <marker id="arrow-purp" markerWidth="6" markerHeight="6" refX="14" refY="3" orient="auto"><polygon points="0 0, 6 3, 0 6" fill="#a855f7" /></marker>
-                  </defs>
-                  <!-- Set A -->
-                  <ellipse cx="30" cy="60" rx="20" ry="50" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4"/>
-                  <circle cx="30" cy="20" r="4" fill="white"/>
-                  <circle cx="30" cy="45" r="4" fill="white"/>
-                  <circle cx="30" cy="75" r="4" fill="white"/>
-                  <circle cx="30" cy="100" r="4" fill="white"/>
-                  
-                  <!-- Set B -->
-                  <ellipse cx="90" cy="60" rx="20" ry="40" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4"/>
-                  <circle cx="90" cy="35" r="4" fill="#a855f7"/>
-                  <circle cx="90" cy="85" r="4" fill="#a855f7"/>
+        <div style="background: rgba(168, 85, 247, 0.1); border-left: 4px solid #a855f7; padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem;">
+          <strong style="color: #a855f7;">Explicación Matemática:</strong><br>
+          <span style="color: var(--text-secondary); font-size: 0.9rem;">
+            <ul style="margin-top: 0.5rem; margin-bottom: 0; padding-left: 1.5rem;">
+              <li><strong>Inyectiva:</strong> f(x₁) = f(x₂) ⇒ x₁ = x₂. (Ej. Asignación de UUIDs únicos).</li>
+              <li><strong>Suprayectiva:</strong> ∀y ∈ B, ∃x ∈ A tal que f(x) = y. (Ej. Todas las facultades deben tener al menos un estudiante).</li>
+              <li><strong>Biyectiva:</strong> Es inyectiva y suprayectiva a la vez. Admite función inversa f⁻¹(y) = x. (Ej. Relación estricta 1:1 entre Usuario y Token JWT).</li>
+            </ul>
+          </span>
+        </div>
 
-                  <!-- Arrows -->
-                  <line x1="30" y1="20" x2="90" y2="35" stroke="#a855f7" stroke-width="1.5" marker-end="url(#arrow-purp)"/>
-                  <line x1="30" y1="45" x2="90" y2="35" stroke="#a855f7" stroke-width="1.5" marker-end="url(#arrow-purp)"/>
-                  <line x1="30" y1="75" x2="90" y2="85" stroke="#a855f7" stroke-width="1.5" marker-end="url(#arrow-purp)"/>
-                  <line x1="30" y1="100" x2="90" y2="85" stroke="#a855f7" stroke-width="1.5" marker-end="url(#arrow-purp)"/>
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          <!-- Biyectiva -->
-          <div style="flex: 1; min-width: 280px; background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 2rem; display: flex; flex-direction: column;">
-            <div style="color: #10b981; font-weight: bold; margin-bottom: 1rem; font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem;">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-              3. Función Biyectiva e Invertibilidad
-            </div>
-            
-            <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
-              <div style="flex: 1;">
-                <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.6;">
-                  Una función es biyectiva si es simultáneamente <strong>Inyectiva y Suprayectiva</strong>. Esto garantiza la existencia de una función inversa <code>f⁻¹(y) = x</code> absoluta y sin ambigüedades.
-                </p>
-              </div>
-              <div style="background: rgba(0,0,0,0.5); border-radius: 8px; padding: 1rem; margin: auto;">
-                <svg width="120" height="120" viewBox="0 0 120 120">
-                  <defs>
-                    <marker id="arrow-green" markerWidth="6" markerHeight="6" refX="14" refY="3" orient="auto"><polygon points="0 0, 6 3, 0 6" fill="#10b981" /></marker>
-                    <marker id="arrow-green-inv" markerWidth="6" markerHeight="6" refX="-8" refY="3" orient="auto"><polygon points="6 0, 0 3, 6 6" fill="#10b981" /></marker>
-                  </defs>
-                  <!-- Set A -->
-                  <ellipse cx="30" cy="60" rx="20" ry="40" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4"/>
-                  <circle cx="30" cy="35" r="4" fill="white"/><text x="18" y="39" fill="white" font-size="10">x₁</text>
-                  <circle cx="30" cy="85" r="4" fill="white"/><text x="18" y="89" fill="white" font-size="10">x₂</text>
-                  
-                  <!-- Set B -->
-                  <ellipse cx="90" cy="60" rx="20" ry="40" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4"/>
-                  <circle cx="90" cy="35" r="4" fill="#10b981"/><text x="98" y="39" fill="white" font-size="10">y₁</text>
-                  <circle cx="90" cy="85" r="4" fill="#10b981"/><text x="98" y="89" fill="white" font-size="10">y₂</text>
-
-                  <!-- Arrows -->
-                  <line x1="30" y1="35" x2="90" y2="85" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow-green)"/>
-                  <line x1="90" y1="35" x2="30" y2="85" stroke="#10b981" stroke-width="1.5" stroke-dasharray="2" marker-start="url(#arrow-green-inv)"/>
-                </svg>
-              </div>
-            </div>
-
-            <div style="background: rgba(0,0,0,0.5); padding: 1rem; border-radius: 8px; border-left: 3px solid #10b981; margin-top: auto;">
-              <strong style="color: white; display: block; margin-bottom: 0.5rem;">Utilidad Práctica: Tokens de Sesión (JWT)</strong>
-              <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0;">
-                El mapeo de Usuario ↔ Token debe ser biyectivo. <br><br>
-                - <strong>Por Inyectiva:</strong> No hay cruce de sesiones (1 Token = 1 Usuario).<br>
-                - <strong>Por Suprayectiva:</strong> Todo token en B le pertenece forzosamente a alguien.<br>
-                - <strong>Invertibilidad (Línea punteada):</strong> Dado el token (y₁), calculamos <code>f⁻¹(y₁)</code> y regresamos con 100% de certeza al usuario de origen (x₂).
-              </p>
-            </div>
-          </div>
+        <div style="background: #000; padding: 1rem; border-radius: 8px; font-family: monospace; color: var(--text-secondary); margin-bottom: 3rem; border: 1px solid rgba(255,255,255,0.1);">
+          <span style="color: #c678dd;">String</span> <span style="color: #61afef;">obtenerUsuarioPorToken</span>(<span style="color: #c678dd;">String</span> tokenJwt) {<br>
+          &nbsp;&nbsp;<span style="color: #64748b;">// f⁻¹(y): Al ser biyectiva, regresamos al origen con 100% certeza</span><br>
+          &nbsp;&nbsp;<span style="color: #c678dd;">return</span> auth.decodificar(tokenJwt).<span style="color: #e5c07b;">uid</span>;<br>
+          }
         </div>
 
         <!-- 5.2 Composición Gráfica (Screenshot 2) -->
-        <h3 style="margin-bottom: 1.5rem; color: white;">5.2 Pipeline de Funciones: La Composición (g ∘ f)</h3>
+        <h3 style="margin-bottom: 1.5rem; color: white;">5.2 Composición de Funciones (Pipeline / Minería de Datos)</h3>
+        
+        <div style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem;">
+          <strong style="color: #3b82f6;">Utilidad Práctica (Análisis en Cascada):</strong><br>
+          <span style="color: var(--text-secondary); font-size: 0.9rem;">El algoritmo predictivo ayuda a estimar la Tasa de Ausencias Mensual según tendencias de uso o ejecutar transacciones atómicas seguras en Firebase (Cloud Functions).</span>
+        </div>
+
+        <div style="background: rgba(168, 85, 247, 0.1); border-left: 4px solid #a855f7; padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem;">
+          <strong style="color: #a855f7;">Explicación Matemática:</strong><br>
+          <span style="color: var(--text-secondary); font-size: 0.9rem;">
+            La composición (g ∘ f) aplica sucesivamente funciones.
+            <ul style="margin-top: 0.5rem; margin-bottom: 0; padding-left: 1.5rem;">
+              <li><strong>f(x) = 20x + 5:</strong> Predice cupos en el mes x.</li>
+              <li><strong>g(y) = y / 4:</strong> Predice ausencias dado y cupos.</li>
+              <li><strong>Compuesta (g ∘ f)(x):</strong> g(20x + 5) = (20x + 5) / 4 = 5x + 1.25</li>
+            </ul>
+          </span>
+        </div>
+
+        <div style="background: #000; padding: 1rem; border-radius: 8px; font-family: monospace; color: var(--text-secondary); margin-bottom: 1.5rem; border: 1px solid rgba(255,255,255,0.1);">
+          <span style="color: #c678dd;">double</span> <span style="color: #61afef;">predecirTasaAusencias</span>(<span style="color: #c678dd;">double</span> x) {<br>
+          &nbsp;&nbsp;<span style="color: #c678dd;">double</span> f(<span style="color: #c678dd;">double</span> x) =&gt; (<span style="color: #d19a66;">20</span> * x) + <span style="color: #d19a66;">5</span>; <span style="color: #64748b;">// Función Interna</span><br>
+          &nbsp;&nbsp;<span style="color: #c678dd;">double</span> g(<span style="color: #c678dd;">double</span> y) =&gt; y / <span style="color: #d19a66;">4</span>;        <span style="color: #64748b;">// Función Externa</span><br>
+          &nbsp;&nbsp;<span style="color: #c678dd;">return</span> <span style="color: #56b6c2;">g</span>(<span style="color: #56b6c2;">f</span>(x)); <span style="color: #64748b;">// Composición Completa (g ∘ f)(x)</span><br>
+          }
+        </div>
+        
         <p style="color: var(--text-secondary); margin-bottom: 2rem;">
-          Las aplicaciones modernas raras veces ejecutan una sola función. En su lugar, utilizan la composición de funciones matemáticas. Imaginemos que la base de datos ejecuta dos <strong>Cloud Functions</strong>.
+          Las aplicaciones modernas raras veces ejecutan una sola función. En su lugar, utilizan la composición matemática para su Pipeline de datos, uniendo microservicios:
         </p>
 
         <div style="background: rgba(0,0,0,0.3); padding: 3rem; border-radius: 12px; border: 1px solid var(--border-glass);">
@@ -251,6 +174,53 @@ export function renderFunciones(): string {
 
           </div>
 
+        </div>
+
+        <!-- XP Table -->
+        <div style="background: rgba(0,0,0,0.3); border-radius: 12px; border: 1px solid var(--border-glass); padding: 1.5rem; margin-bottom: 3rem; margin-top: 3rem;">
+          <h4 style="color: white; margin-bottom: 1rem;">Tabla de Valores: Puntos de Experiencia (XP)</h4>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+            Ejemplo numérico de un sistema de gamificación donde <strong>f(x)</strong> calcula los puntos base por horas de tutoría impartidas, y <strong>g(y)</strong> aplica un multiplicador de bonificación por racha semanal.
+          </p>
+          
+          <div style="overflow-x: auto;">
+            <table style="width: 100%; text-align: left; border-collapse: collapse; color: var(--text-secondary); font-size: 0.9rem;">
+              <thead>
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                  <th style="padding: 1rem; color: white;">Horas (x)</th>
+                  <th style="padding: 1rem; color: #a855f7;">Puntos Base f(x) = 100x</th>
+                  <th style="padding: 1rem; color: #3b82f6;">Multiplicador / Bono g(y) = 1.5y</th>
+                  <th style="padding: 1rem; color: #10b981;">Composición (g ∘ f)(x)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                  <td style="padding: 1rem;">1</td>
+                  <td style="padding: 1rem;">100</td>
+                  <td style="padding: 1rem;">g(100) = 100 × 1.5</td>
+                  <td style="padding: 1rem; color: #10b981; font-weight: bold;">150 XP</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                  <td style="padding: 1rem;">2</td>
+                  <td style="padding: 1rem;">200</td>
+                  <td style="padding: 1rem;">g(200) = 200 × 1.5</td>
+                  <td style="padding: 1rem; color: #10b981; font-weight: bold;">300 XP</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                  <td style="padding: 1rem;">3</td>
+                  <td style="padding: 1rem;">300</td>
+                  <td style="padding: 1rem;">g(300) = 300 × 1.5</td>
+                  <td style="padding: 1rem; color: #10b981; font-weight: bold;">450 XP</td>
+                </tr>
+                <tr>
+                  <td style="padding: 1rem;">4</td>
+                  <td style="padding: 1rem;">400</td>
+                  <td style="padding: 1rem;">g(400) = 400 × 1.5</td>
+                  <td style="padding: 1rem; color: #10b981; font-weight: bold;">600 XP</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <!-- 5.3 Ejemplo Interactivo (Seguridad) -->

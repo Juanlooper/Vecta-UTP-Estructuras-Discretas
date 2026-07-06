@@ -34,44 +34,13 @@ Este módulo unificado permite al usuario navegar de forma fluida a través de u
 1. El usuario puede deslizar de forma secuencial, donde cada tarjeta muestra la propiedad matemática, un pequeño diagrama del grafo (explicando la conexión de nodos y lazos) y el fragmento del código IDE implementado.
 2. **Simulador de Tránsito (Transitiva):** En la sección respectiva a la propiedad transitiva, se ofrece una demostración jugable que simula internamente cómo Dart asume transitivamente la jerarquía cronológica para ordenar tutorías (X < Y y Y < Z, luego X < Z) sin tener que compararlas explícitamente, operando la función real mediante un botón animado que imita el log del sistema en vivo.
 
-### 4.7 Representación Computacional (Matriz de Relación y Código)
-La Matriz de Relación ($M_R$) funciona bajo una regla booleana simple: si hay relación es $1$, de lo contrario es $0$. Aplicamos este concepto al Registro de Asistencia de las clases de un tutor.
-
-- **Problema Práctico:** Contabilizar de forma eficiente las inasistencias y penalizaciones ("strikes") de los alumnos a las tutorías programadas.
-- **Por qué se aplica:** Almacenar e interrogar asistencias en matrices booleanas permite consultarlas en tiempo real en $O(1)$, reduciendo drásticamente las lecturas en Firestore y evitando búsquedas lentas de logs históricos.
-- **Sustento Matemático:** Matriz de relación $M_R = [m_{ij}]$ de tamaño $n \times m$, donde el alumno $i$ y clase $j$ tiene: $m_{ij} \in \{0, 1\}$. La inasistencia acumulada (strikes) del estudiante $i$ a lo largo de las $m$ clases programadas se calcula mediante:
+### 4.7 Representación Computacional (Matriz de Relación)
+- **Utilidad Práctica:** Contabilizar de forma eficiente las inasistencias y penalizaciones ("strikes") de los alumnos a tutorías programadas. Almacenar asistencias en matrices booleanas permite consultarlas en $O(1)$, reduciendo lecturas a la base de datos de Firestore.
+- **Explicación Matemática:** 
+  Matriz de relación $M_R = [m_{ij}]$ de tamaño $n \times m$, donde el alumno $i$ y la clase $j$ tiene: $m_{ij} \in \{0, 1\}$. 
+  La inasistencia acumulada (strikes) del estudiante $i$ a lo largo de $m$ clases programadas es:
   $\text{Strikes}_i = \sum_{j=1}^m (1 - m_{ij})$
-
-**Ejemplo Práctico:**
-Tutor Roberto dicta dos clases (C1 y C2) a tres alumnos: Luis, Ana y Pedro.
-- Luis: Asistió a C1, faltó a C2 $\implies (1, 0) \implies 1$ strike
-- Ana: Asistió a C1, asistió a C2 $\implies (1, 1) \implies 0$ strikes
-- Pedro: Faltó a C1, faltó a C2 $\implies (0, 0) \implies 2$ strikes
-
-**Matriz de Relación Resultante ($M_R$):**
-$$
-\begin{pmatrix}
-1 & 0 \\
-1 & 1 \\
-0 & 0
-\end{pmatrix}
-$$
-
-| Alumno | C1 | C2 | Suma de Inasistencias (0s) | Estado de Penalización |
-| --- | --- | --- | --- | --- |
-| Luis | 1 | 0 | 1 | 1 Strike |
-| Ana | 1 | 1 | 0 | Activo (Sin Penalizaciones) |
-| Pedro | 0 | 0 | 2 | 2 Strikes (Alerta de Suspensión) |
-
-**Funcionamiento del Elemento Interactivo en la Web:**
-La plataforma presenta el ejemplo descrito de manera completamente interactiva:
-1. El usuario actúa como el tutor y tiene a su disposición una tabla de asistencias (Matriz Booleana $M_R$) integrada con casillas de verificación (checkboxes) para Luis, Ana y Pedro a través de C1 y C2.
-2. Cuando el usuario desmarca una casilla (asumiendo que $m_{ij} = 0$, denotando inasistencia), una función reactiva calcula en milisegundos la sumatoria del vector de la fila usando la función $\sum (1 - m_{ij})$.
-3. La interfaz visual resalta reactivamente el impacto final y modifica las alertas, coloreando de rojo la penalidad (2 Strikes) si un alumno alcanza el límite configurado.
-
-**Implementación del Algoritmo (Dart/Firebase)**
-Código conceptual en `registro_asistencia.dart` que itera sobre la base de datos para generar la matriz de relación:
-
+- **Código de Ejemplo:**
 ```dart
 List<List<int>> generarMatrizAsistencia(List<String> alumnos, List<String> clases, Map datosFirebase) {
   List<List<int>> matriz = [];
@@ -79,7 +48,7 @@ List<List<int>> generarMatrizAsistencia(List<String> alumnos, List<String> clase
   for (var alumno in alumnos) {
     List<int> filaAlumno = [];
     for (var clase in clases) {
-      // Si el valor en el Map de Firebase es true, agrega 1; si es false o nulo, agrega 0
+      // Si el valor en Firebase es true, agrega 1; si es false/nulo, agrega 0
       bool asistio = datosFirebase[clase][alumno] ?? false;
       filaAlumno.add(asistio ? 1 : 0); 
     }
@@ -88,56 +57,31 @@ List<List<int>> generarMatrizAsistencia(List<String> alumnos, List<String> clase
   return matriz;
 }
 ```
+*(Nota: El simulador interactivo "Registro de Asistencia" de la página web demuestra esta matriz calculando reactivamente las penalizaciones al marcar/desmarcar checkboxes).*
 
 ---
 
 ## 5. FUNCIONES
-El sistema opera bajo diversas lógicas funcionales.
-- **Definiciones Base**: El conjunto de Solicitudes de clases es el Dominio, los Tutores disponibles son el Codominio, y los tutores que "Aceptan" conforman el Rango.
-- **Función Inyectiva (Uno a Uno)**: Cada usuario recibe un identificador UUID único. Es inyectiva porque $f(x_1) = f(x_2) \Rightarrow x_1 = x_2$.
-- **Función Suprayectiva**: El sistema web obliga a que todos los estudiantes elijan una facultad en el registro, garantizando que el Rango sea exactamente igual al Codominio de Facultades.
-- **Función Biyectiva**: La asignación de un "Token de Reseteo SMTP" a un "Correo Electrónico".
-- **Función Inversa ($f^{-1}$)**: Dado que la recuperación de contraseña es biyectiva, el servidor rastrea quién solicitó el reseteo leyendo la URL al revés: $f^{-1}(\text{Token}_{123}) = \text{Nieves}$.
-- **Función Idéntica**: Se refleja en el panel "Mi Perfil" de la app, donde la BD devuelve la misma data inalterada ($f(x) = x$).
 
-### 5.1 Composición de Funciones
-La composición $(g \circ f)$ es la imagen resultado de la aplicación sucesiva de dos o más funciones. El algoritmo predictivo de Data Mining de Vecta calcula la Tasa de Ausencias Mensual.
-- $f(x) = 20x + 5$: Función que predice la cantidad de cupos apartados en el mes $x$.
-- $g(y) = \frac{y}{4}$: Función que predice la cantidad de "Ausencias".
-- Función Compuesta $(g \circ f)(x) = g(20x + 5) = \frac{20x + 5}{4} = 5x + 1.25$
-
-Si la universidad pide el reporte proyectado del mes de Agosto ($x=5$): $(g \circ f)(5) = 5(5) + 1.25 = \mathbf{26.25} \text{ ausencias estimadas}$.
-
-**Funcionamiento del Elemento Interactivo en la Web:**
-En el módulo de *Predicción de Ausencias*, el flujo se despliega visualmente en una tubería de operaciones:
-1. El usuario tiene un input principal para ingresar el **Mes ($x$)** que quiere analizar.
-2. Al ingresar el valor numérico, el sistema ejecuta interactivamente $f(x)$ y muestra en una caja intermedia el número de cupos proyectados.
-3. Automáticamente, este valor es canalizado hacia la segunda función $g(y)$, mostrándose la transformación final en una caja de resultados brillante con el cálculo completo de $(g \circ f)(x)$, ejemplificando de forma evidente cómo un dato encadena resultados.
-
+### 5.1 Composición de Funciones (Predicción y Minería de Datos)
+- **Utilidad Práctica:** En el Dashboard de Análisis, el algoritmo predictivo de minería de datos ayuda a la coordinación de ciencias a estimar la "Tasa de Ausencias Mensual" según las tendencias de uso, permitiendo tomar medidas preventivas.
+- **Explicación Matemática:** 
+  La composición $(g \circ f)$ es la imagen resultante de aplicar sucesivamente dos o más funciones.
+  - $f(x) = 20x + 5$: Función que predice cantidad de cupos apartados en el mes $x$.
+  - $g(y) = \frac{y}{4}$: Función que predice ausencias en base a $y$ cupos apartados.
+  - **Función Compuesta:** $(g \circ f)(x) = g(20x + 5) = \frac{20x + 5}{4} = \mathbf{5x + 1.25}$
+  - Ejemplo para el mes de Agosto ($x=5$): $(g \circ f)(5) = 5(5) + 1.25 = \mathbf{26.25}$ ausencias estimadas.
+- **Código de Ejemplo:**
 ```dart
-// Función f(x): Predice cantidad de cupos apartados en el mes x
-double f(double x) {
-  return (20 * x) + 5;
-}
+double f(double x) => (20 * x) + 5; // Cupos apartados en el mes x
+double g(double y) => y / 4;        // Ausencias dado 'y' cupos
 
-// Función g(y): Predice ausencias dado los cupos y
-double g(double y) {
-  return y / 4;
-}
-
-// Composición de Funciones (g ∘ f)(x)
 double predecirTasaAusencias(double x) {
-  // Sustituimos la función interior dentro de la exterior
-  // g(f(x)) es algebraicamente igual a: 5x + 1.25
+  // Composición (g ∘ f)(x) = 5x + 1.25
   return g(f(x)); 
 }
-
-// Uso en las Métricas del Dashboard (Ejemplo Agosto, x = 5)
-void generarReporteAusencias() {
-  double ausenciasEstimadas = predecirTasaAusencias(5); 
-  print("Ausencias para Agosto: $ausenciasEstimadas"); // Imprime: 26.25
-}
 ```
+*(Nota: En Vecta Web, el módulo interactivo despliega visualmente esta tubería matemática. Al ingresar el Mes ($x$), el valor atraviesa las funciones $f(x)$ y $g(y)$ como si fueran cajas de transformación, mostrando el resultado componiendo).*
 
 ### 5.2 Composición de Funciones (El "Flujo Uber" de Asignación)
 Este modelo (basado en el Laboratorio 2) mapea el proceso de asignación de tutorías cuando un estudiante crea un requerimiento y este queda en una "bolsa de solicitudes pendientes" hasta que un tutor certificado lo toma (exclusividad). Este flujo se orquesta mediante dos Cloud Functions en Firebase.

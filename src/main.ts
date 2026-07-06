@@ -6,6 +6,7 @@ import { renderRepresentacion } from './components/representacion';
 import { renderGrafos, initGrafosLogic } from './components/grafos';
 import { renderFunciones, initFuncionesLogic } from './components/funciones';
 import { renderAlgebra, initAlgebraLogic } from './components/algebra';
+import { renderPrototype, initPrototypeLogic } from './components/prototype';
 import { renderConclusion } from './components/conclusion';
 
 const app = document.querySelector<HTMLElement>('#app')!;
@@ -19,6 +20,7 @@ app.innerHTML = `
     ${renderGrafos()}
     ${renderFunciones()}
     ${renderAlgebra()}
+    ${renderPrototype()}
     ${renderConclusion()}
   </div>
 `;
@@ -29,3 +31,4 @@ initConteoLogic();
 initGrafosLogic();
 initFuncionesLogic();
 initAlgebraLogic();
+initPrototypeLogic();
