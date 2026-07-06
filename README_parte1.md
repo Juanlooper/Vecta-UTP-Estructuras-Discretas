@@ -85,13 +85,21 @@ int conteoUnico(Set<String> estudiantesAlgebra, Set<String> estudiantesProg) {
 ```
 *(Nota: Consulta los módulos interactivos de Conjuntos en la web para ver cómo estos cálculos funcionan en vivo).*
 
-### 2.6 Aplicación Práctica: Arquitectura de Vecta - Conjuntos y Relaciones (Laboratorio 2)
-En plataformas educativas con miles de perfiles, la base de datos necesita un marco delimitado de entidades válidas. Sin conjuntos definidos, se corre el riesgo de procesar referencias huérfanas, usuarios ficticios o tipos de datos inconsistentes.
-
-#### A. Conjuntos Universales
-Establecer estudiantes y tutores como conjuntos finitos ($A$ y $B$) define fronteras operativas claras. Esto permite aplicar validaciones estrictas en el backend, optimizar la indexación de colecciones en Firestore y calcular el tamaño máximo del espacio de conexiones.
-
-- **Conjunto A (Estudiantes):** $A = \{ \text{Carlos, María, Juan} \}$
+### 2.4 Aplicación Práctica: Conjuntos Universales (Laboratorio 2)
+- **Utilidad Práctica:** En plataformas educativas con miles de perfiles, la base de datos necesita un marco delimitado de entidades válidas. Sin conjuntos definidos, se corre el riesgo de procesar referencias huérfanas, usuarios ficticios o tipos de datos inconsistentes. Establecer fronteras operativas claras permite optimizar la indexación en Firestore y calcular el tamaño máximo del espacio de conexiones.
+- **Explicación Matemática:** Establecemos estudiantes y tutores como conjuntos finitos $A$ y $B$.
+  - **Conjunto A (Estudiantes):** $A = \{ \text{Carlos, María, Juan} \}$
   - *Formalmente:* $A = \{ a_i \mid a_i \text{ es un estudiante registrado} \}$
-- **Conjunto B (Tutores):** $B = \{ \text{Elena, Roberto} \}$
+  - **Conjunto B (Tutores):** $B = \{ \text{Elena, Roberto} \}$
   - *Formalmente:* $B = \{ b_j \mid b_j \text{ es un tutor certificado} \}$
+- **Código de Ejemplo:**
+```dart
+class ConjuntosUniversales {
+  Set<String> A = {'Carlos', 'María', 'Juan'};
+  Set<String> B = {'Elena', 'Roberto'};
+  
+  bool validarEntidades() {
+    return A.isNotEmpty && B.isNotEmpty;
+  }
+}
+```

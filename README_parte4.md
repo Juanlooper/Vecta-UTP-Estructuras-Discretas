@@ -110,28 +110,75 @@ Finalmente, la impecable demostración de la rotación de roles de sistema estru
 
 ## 8. GUÍA DE LA WEB INTERACTIVA (COMPONENTES Y SU UTILIDAD)
 
-Este repositorio contiene una aplicación web interactiva desarrollada para visualizar dinámicamente cómo cada concepto matemático se comporta en tiempo real. A continuación, se detalla la utilidad de cada sección interactiva de la página:
-
 1. **Introducción (`intro.ts`)**
    - **Utilidad**: Establece el contexto del proyecto y da la bienvenida a la interfaz. Presenta de forma amigable cómo las matemáticas discretas son el núcleo del desarrollo arquitectónico de la plataforma Vecta UTP.
+   - **Explicación Matemática**: Se expone la notación de los conjuntos base ($E, T, M, S$) mediante las tres formas de definición (verbal, extensión, comprensión).
+   - **Código de Ejemplo**:
+```typescript
+const E = "Conjunto de Estudiantes";
+const T = ["Elena", "Roberto"]; // Extensión
+```
 
 2. **Sucesiones y Conjuntos (`sucesiones.ts`)**
-   - **Utilidad**: Mediante un *slider* (control deslizante), el usuario puede ajustar la "Fase de Despliegue" y ver cómo la fórmula recursiva/explícita calcula dinámicamente la capacidad requerida del servidor. Además, incluye un simulador de conjuntos (Diagrama de Venn) que recalcula en vivo los usuarios únicos usando el Principio de Inclusión-Exclusión al ajustar la magnitud de la intersección.
+   - **Utilidad**: Mediante un *slider* (control deslizante), el usuario puede ajustar la "Fase de Despliegue" y ver cómo la fórmula recursiva/explícita calcula dinámicamente la capacidad requerida del servidor.
+   - **Explicación Matemática**: Representa la progresión $S_k = S_{k-1} + 50$. Muestra el diagrama de Venn aplicando el principio de inclusión-exclusión: $|A \cup B| = |A| + |B| - |A \cap B|$.
+   - **Código de Ejemplo**:
+```typescript
+const capacidadFase = 100 + 50 * (k - 1);
+const union = setA.size + setB.size - interseccion;
+```
 
 3. **Técnicas de Conteo (`conteo.ts`)**
-   - **Utilidad**: Proporciona listas seleccionables de Roles, Facultades y Modalidades. Al seleccionar múltiples opciones, el sistema aplica el Principio Multiplicativo en tiempo real, demostrando a los ingenieros cuántas combinaciones únicas de perfiles deben soportar y renderizar las bases de datos.
+   - **Utilidad**: Proporciona listas seleccionables de Roles, Facultades y Modalidades. Demuestra a los ingenieros cuántas combinaciones únicas de perfiles deben soportar las bases de datos.
+   - **Explicación Matemática**: Aplica el Principio Multiplicativo ($n_1 \times n_2 \times n_3$) para eventos secuenciales y dependientes.
+   - **Código de Ejemplo**:
+```typescript
+const totalCombinaciones = roles.length * facultades.length * modalidades.length;
+```
 
 4. **Grafos y Relaciones (`grafos.ts`)**
-   - **Utilidad**: Despliega un lienzo de nodos interactivo. Al hacer clic entre los usuarios (nodos), se trazan arcos (grafos dirigidos) que representan tutorías impartidas. El sistema calcula en vivo los Grados Internos (reputación del tutor) y Externos (actividad del alumno), validando matemáticamente el Teorema del Apretón de Manos de forma visual.
+   - **Utilidad**: Despliega un lienzo de nodos interactivo. Al hacer clic entre los usuarios (nodos), se trazan arcos (grafos dirigidos) que representan tutorías impartidas. 
+   - **Explicación Matemática**: Valida el Teorema del Apretón de Manos de grafos dirigidos sumando $deg^+(v)$ y $deg^-(v)$, probando que $\sum deg^+ = \sum deg^- = |R|$.
+   - **Código de Ejemplo**:
+```typescript
+const sumOut = nodes.reduce((acc, curr) => acc + curr.degOut, 0);
+const sumIn = nodes.reduce((acc, curr) => acc + curr.degIn, 0);
+```
 
 5. **Representación Computacional (`representacion.ts`)**
-   - **Utilidad**: Expone una tabla interactiva de control de asistencias que funciona como una Matriz de Relación ($M_R$) booleana. Muestra cómo, al marcar/desmarcar checkboxes (1s y 0s), el algoritmo calcula instantáneamente las penalizaciones ("strikes") en tiempo $O(1)$, evitando sobrecargar Firestore con búsquedas históricas iterativas.
+   - **Utilidad**: Expone una tabla interactiva de control de asistencias que funciona como una Matriz de Relación ($M_R$) booleana, calculando instantáneamente penalizaciones sin bases de datos pesadas.
+   - **Explicación Matemática**: Si $M_{ij} = 0$, el alumno $i$ faltó a la clase $j$. Sumatoria de faltas por fila.
+   - **Código de Ejemplo**:
+```typescript
+const faltasAlumno = fila.filter(asistencia => asistencia === 0).length;
+```
 
 6. **Funciones (`funciones.ts`)**
-   - **Utilidad**: Visualiza el proceso de *Composición de Funciones*. El usuario ingresa un mes objetivo en el input, y el sistema canaliza el dato por un *pipeline* ($f(x)$ seguido de $g(y)$). Transforma el valor paso a paso hasta entregar la tasa de ausencias estimada, enseñando de forma evidente cómo un dato inicial viaja y muta a través de la lógica de negocio.
+   - **Utilidad**: Visualiza el proceso de *Composición de Funciones*. El usuario ingresa un mes objetivo en el input, y el sistema canaliza el dato por un *pipeline* ($f(x)$ seguido de $g(y)$).
+   - **Explicación Matemática**: Evalúa $(g \circ f)(x) = g(f(x))$, canalizando matemáticamente la variable de tiempo a predicción de ausencias.
+   - **Código de Ejemplo**:
+```typescript
+const f_x = (x: number) => 20 * x + 5;
+const g_y = (y: number) => y / 4;
+const prediccion = g_y(f_x(mes));
+```
 
 7. **Estructuras Algebraicas (`algebra.ts`)**
-   - **Utilidad**: Presenta un simulador animado de turnos de soporte técnico modelado bajo un Grupo Abeliano (aritmética modular base 4). Al delegar un ticket, la interfaz recalcula el índice y salta reactivamente al siguiente encargado, probando en vivo cómo la matemática discreta previene errores del tipo `OutOfBounds` sin requerir condicionales lógicos (`if/else`) propensos a fallos.
+   - **Utilidad**: Presenta un simulador animado de turnos de soporte técnico modelado bajo un Grupo Abeliano (aritmética modular base 4).
+   - **Explicación Matemática**: El ciclo nunca desborda al operar dentro del monoide $Z_4$ con la función $(turno + 1) \bmod 4$.
+   - **Código de Ejemplo**:
+```typescript
+let turnoAdmin = 0;
+turnoAdmin = (turnoAdmin + 1) % 4; // Asegura rotación 0,1,2,3
+```
 
-8. **Conclusión (`conclusion.ts`)**
-   - **Utilidad**: Encapsula el recorrido de la experiencia didáctica. Resalta que, más allá de la interfaz, el dominio sobre matrices booleanas, teoría de grafos y funciones es lo que verdaderamente permite construir sistemas corporativos escalables, seguros y eficientes en la vida real.
+8. **Prototipo Integrado (`prototype.ts`)**
+   - **Utilidad**: Demuestra la integración de la lógica en una interfaz funcional tipo aplicación con estado persistente interconectado.
+   - **Explicación Matemática**: Unifica Grafos (suscripciones), Sucesiones (crecimiento de XP) y Operaciones de Conjuntos (filtros $A \cap B$) en un solo ecosistema reactivo.
+   - **Código de Ejemplo**:
+```typescript
+if (!activeTutors.find(t => t.name === tName)) {
+  activeTutors.push({ id, name, subject }); // Crea arco en el Grafo
+  xp += 50; // Avanza sucesión
+}
+```
