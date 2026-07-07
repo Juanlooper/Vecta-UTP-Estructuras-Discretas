@@ -250,7 +250,7 @@ export function renderGrafos(): string {
                 <p style="margin-bottom: 1.5rem;"><strong>Regla Matricial:</strong> Si M_ij = 1 ∧ M_jk = 1 ⇒ M_ik = 1</p>
                 <div style="background: rgba(139, 92, 246, 0.1); border-left: 4px solid var(--accent-primary); padding: 1rem; border-radius: 0 8px 8px 0;">
                   <strong style="color: var(--accent-primary);">Utilidad en Vecta:</strong><br>
-                  Algoritmo de Compañeros. Si Oliver es compañero de Juan, y Nieves es compañera de Oliver, el sistema deduce transitivamente que Nieves es compañera de Juan sin tener que comparar a Nieves directamente con Juan.
+                  Algoritmo de Compañeros. Si Oliver es compañero de Juan, y Nieves es compañero de Oliver, el sistema deduce transitivamente que Nieves es compañero de Juan sin tener que comparar a Nieves directamente con Juan.
                 </div>
               </div>
               
