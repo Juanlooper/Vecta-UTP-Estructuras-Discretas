@@ -228,9 +228,8 @@ export function renderGrafos(): string {
                     <circle cx="120" cy="110" r="14" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
                     <text x="120" y="115" fill="white" font-size="12" font-family="monospace" text-anchor="middle">3</text>
 
-                    <!-- Curved bidirectional lines -->
-                    <path d="M 50 110 Q 60 70 100 40" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#white-arrow)"/>
-                    <path d="M 100 40 Q 90 80 50 110" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#white-arrow)"/>
+                    <!-- 1 to 2 straight -->
+                    <line x1="50" y1="110" x2="100" y2="40" stroke="#3b82f6" stroke-width="2" marker-end="url(#white-arrow)"/>
                     <!-- 2 to 3 straight -->
                     <line x1="100" y1="40" x2="120" y2="110" stroke="#3b82f6" stroke-width="2" marker-end="url(#white-arrow)"/>
                     <!-- 1 to 3 straight -->
@@ -622,10 +621,11 @@ export function initGrafosLogic() {
     `<span style="color: #c678dd;">bool</span> <span style="color: #61afef;">esValida</span>(<span style="color: #e5c07b;">String</span> userId, <span style="color: #e5c07b;">String</span> targetId) {<br>
   &nbsp;&nbsp;<span style="color: #c678dd;">return</span> userId != targetId; <span style="color: #64748b;">// Irreflexiva: Evita auto-suscripción</span><br>
   }`,
-    `<span style="color: #c678dd;">bool</span> <span style="color: #61afef;">esAntisimetrica</span>(<span style="color: #e5c07b;">String</span> a, <span style="color: #e5c07b;">String</span> b, <span style="color: #e5c07b;">List</span>&lt;<span style="color: #e5c07b;">Map</span>&gt; reps) {<br>
-  &nbsp;&nbsp;<span style="color: #c678dd;">bool</span> aRb = reps.<span style="color: #56b6c2;">any</span>((r) =&gt; r[<span style="color: #98c379;">'o'</span>] == a &amp;&amp; r[<span style="color: #98c379;">'d'</span>] == b);<br>
-  &nbsp;&nbsp;<span style="color: #c678dd;">bool</span> bRa = reps.<span style="color: #56b6c2;">any</span>((r) =&gt; r[<span style="color: #98c379;">'o'</span>] == b &amp;&amp; r[<span style="color: #98c379;">'d'</span>] == a);<br>
-  &nbsp;&nbsp;<span style="color: #c678dd;">return</span> !(aRb &amp;&amp; bRa); <span style="color: #64748b;">// Si A reporta a B, B no puede a A</span><br>
+    `<span style="color: #c678dd;">void</span> <span style="color: #61afef;">reportarUsuario</span>(<span style="color: #e5c07b;">String</span> acusador, <span style="color: #e5c07b;">String</span> acusado) {<br>
+  &nbsp;&nbsp;<span style="color: #c678dd;">if</span> (<span style="color: #56b6c2;">yaMeReporto</span>(acusado, acusador)) {<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c678dd;">throw</span> <span style="color: #98c379;">"Venganza detectada. Antisimétrica."</span>;<br>
+  &nbsp;&nbsp;}<br>
+  &nbsp;&nbsp;<span style="color: #56b6c2;">guardarReporte</span>(acusador, acusado);<br>
   }`,
     `<span style="color: #64748b;">// Simulación de Inferencia en Base de Datos</span><br>
   <span style="color: #98c379;">[Datos Guardados]</span><br>
