@@ -17,9 +17,11 @@ export function renderRepresentacion(): string {
       <div style="background: rgba(168, 85, 247, 0.1); border-left: 4px solid #a855f7; padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem;">
         <strong style="color: #a855f7;">Explicación Matemática:</strong><br>
         <span style="color: var(--text-secondary); font-size: 0.9rem;">
-          Matriz de relación M<sub>R</sub> = [m<sub>ij</sub>] de tamaño n × m, donde el alumno i y clase j tiene: m<sub>ij</sub> ∈ {0, 1}.<br>
-          La inasistencia (strikes) del estudiante i a lo largo de m clases es:<br>
-          Strikes<sub>i</sub> = Σ<sub>j=1</sub><sup>m</sup> (1 - m<sub>ij</sub>)
+          Matriz de relación M<sub>R</sub> = [m<sub>ij</sub>] de tamaño Alumnos × Clases.<br>
+          Valor de cada celda m<sub>ij</sub>:<br>
+          • <strong>1</strong> = Existe relación (El alumno asistió a la clase).<br>
+          • <strong>0</strong> = No hay relación (El alumno faltó a la clase).<br>
+          Para calcular las inasistencias (strikes), el algoritmo simplemente cuenta cuántos 0 tiene el alumno en su fila.
         </span>
       </div>
 
