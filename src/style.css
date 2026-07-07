@@ -245,3 +245,57 @@ main {
   text-align: center;
   color: var(--text-secondary);
 }
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+  /* Header adjustments */
+  .app-header .container {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+  }
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+  }
+  main {
+    padding-top: 8rem;
+  }
+
+  /* Typography and Layout */
+  .section-title {
+    font-size: 1.75rem !important;
+    text-align: center;
+  }
+  .section-subtitle {
+    font-size: 1rem;
+    text-align: center;
+  }
+  .container {
+    padding: 0 1rem;
+  }
+  .glass-panel {
+    padding: 1.5rem 1rem;
+  }
+
+  /* Override hardcoded inline min-widths in components to stack them properly */
+  div[style*="min-width: 150px"],
+  div[style*="min-width: 180px"],
+  div[style*="min-width: 250px"],
+  div[style*="min-width: 280px"],
+  div[style*="min-width: 300px"],
+  div[style*="min-width: 320px"],
+  div[style*="min-width: 350px"],
+  div[style*="min-width: 600px"] {
+    min-width: 100% !important;
+    width: 100% !important;
+    flex: 1 1 100% !important;
+  }
+  
+  /* Ensure prototype mockup header flexes well */
+  div[style*="justify-content: space-between"] {
+    justify-content: center !important;
+  }
+}
