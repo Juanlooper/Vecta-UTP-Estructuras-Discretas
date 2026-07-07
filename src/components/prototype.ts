@@ -12,9 +12,9 @@ export function renderPrototype(): string {
           <div style="flex: 2; min-width: 600px; background: #0f172a; border-radius: 16px; overflow: hidden; border: 1px solid var(--border-glass); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); display: flex; flex-direction: column;">
             
             <!-- Mockup Header -->
-            <div style="background: rgba(255,255,255,0.05); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-glass);">
+            <div style="background: rgba(255,255,255,0.05); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; border-bottom: 1px solid var(--border-glass);">
               <div style="display: flex; align-items: center; gap: 1rem;">
-                <div style="width: 40px; height: 40px; border-radius: 8px; background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)); display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 1.2rem;">V</div>
+                <div style="width: 55px; height: 55px; border-radius: 12px; background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)); display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 2rem;">V</div>
                 <strong style="color: white; font-size: 1.2rem; letter-spacing: 1px;">VECTA <span style="color: var(--accent-primary);">UTP</span></strong>
               </div>
               <div style="display: flex; gap: 1rem; align-items: center;" id="proto-tabs">
@@ -98,7 +98,7 @@ export function renderPrototype(): string {
               </div>
 
               <!-- Footer Notification (Algebra) -->
-              <div id="proto-notif" style="margin-top: auto; background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; padding: 1rem; border-radius: 0 8px 8px 0; display: flex; justify-content: space-between; align-items: center; transition: opacity 0.3s; opacity: 1;">
+              <div id="proto-notif" style="margin-top: 2rem; background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; padding: 1rem; border-radius: 0 8px 8px 0; display: flex; justify-content: space-between; align-items: center; transition: opacity 0.3s; opacity: 1;">
                 <div id="proto-notif-text" style="color: #10b981; font-size: 0.9rem;">
                   <strong>Soporte Técnico:</strong> Tu ticket ha sido delegado al Admin 1 (Z₄ rotado exitosamente).
                 </div>

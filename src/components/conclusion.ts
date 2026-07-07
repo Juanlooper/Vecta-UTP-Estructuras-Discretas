@@ -2,7 +2,7 @@ export function renderConclusion(): string {
   return `
     <section id="conclusion" class="section">
       <div class="glass-panel text-center" style="padding: 4rem 2rem; border-color: var(--accent-primary);">
-        <h2 class="section-title text-gradient">Conclusión General: El Código Detrás de la Teoría</h2>
+        <h2 class="section-title text-gradient" style="text-align: center;">Conclusión General: El Código Detrás de la Teoría</h2>
         
         <div style="text-align: left; max-width: 900px; margin: 0 auto; line-height: 1.8; color: var(--text-secondary);">
           <p style="margin-bottom: 1.5rem; font-size: 1.1rem; color: white;">
