@@ -416,9 +416,9 @@ export function renderGrafos(): string {
             <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
               <div style="flex: 1; min-width: 280px;">
                 <p style="margin-bottom: 0.5rem;"><strong>Matemática:</strong> Debe cumplir simultáneamente: Reflexiva + Simétrica + Transitiva</p>
-                <div style="background: linear-gradient(90deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.1)); border-left: 4px solid #fff; padding: 1rem; border-radius: 0 8px 8px 0; margin-top: 1.5rem;">
-                  <strong style="color: white;">Utilidad en Vecta:</strong><br>
-                  Agrupación y particiones. Divide a los estudiantes en "Clases de Equivalencia" disjuntas (Ej: Por Facultad o Carrera) para asignación de foros y tutorías masivas cerradas.
+                <div style="background: rgba(168, 85, 247, 0.1); border-left: 4px solid var(--accent-primary); padding: 1rem; border-radius: 0 8px 8px 0; margin-top: 1.5rem;">
+                  <strong style="color: var(--accent-primary);">Utilidad en Vecta:</strong><br>
+                  Foros por Facultad. La relación "estudia la misma carrera que" divide a los usuarios en grupos separados. Si Ana y Juan son de Sistemas, el algoritmo los agrupa en el mismo foro porque comparten esa "equivalencia".
                 </div>
               </div>
               
@@ -621,11 +621,12 @@ export function initGrafosLogic() {
     `<span style="color: #c678dd;">bool</span> <span style="color: #61afef;">esValida</span>(<span style="color: #e5c07b;">String</span> userId, <span style="color: #e5c07b;">String</span> targetId) {<br>
   &nbsp;&nbsp;<span style="color: #c678dd;">return</span> userId != targetId; <span style="color: #64748b;">// Irreflexiva: Evita auto-suscripción</span><br>
   }`,
-    `<span style="color: #c678dd;">void</span> <span style="color: #61afef;">reportarUsuario</span>(<span style="color: #e5c07b;">String</span> acusador, <span style="color: #e5c07b;">String</span> acusado) {<br>
-  &nbsp;&nbsp;<span style="color: #c678dd;">if</span> (<span style="color: #56b6c2;">yaMeReporto</span>(acusado, acusador)) {<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c678dd;">throw</span> <span style="color: #98c379;">"Venganza detectada. Antisimétrica."</span>;<br>
+    `<span style="color: #c678dd;">Future</span>&lt;<span style="color: #c678dd;">void</span>&gt; <span style="color: #61afef;">procesarReporte</span>(<span style="color: #e5c07b;">String</span> idTutor, <span style="color: #e5c07b;">String</span> idAlumno) <span style="color: #c678dd;">async</span> {<br>
+  &nbsp;&nbsp;<span style="color: #c678dd;">bool</span> reportePrevio = <span style="color: #c678dd;">await</span> db.<span style="color: #56b6c2;">existeReporte</span>(idAlumno, idTutor);<br>
+  &nbsp;&nbsp;<span style="color: #c678dd;">if</span> (reportePrevio) {<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c678dd;">return</span> <span style="color: #56b6c2;">mostrarError</span>(<span style="color: #98c379;">'No puedes reportar a alguien que ya te reportó.'</span>);<br>
   &nbsp;&nbsp;}<br>
-  &nbsp;&nbsp;<span style="color: #56b6c2;">guardarReporte</span>(acusador, acusado);<br>
+  &nbsp;&nbsp;<span style="color: #c678dd;">await</span> db.<span style="color: #56b6c2;">crearReporte</span>(idTutor, idAlumno);<br>
   }`,
     `<span style="color: #64748b;">// Simulación de Inferencia en Base de Datos</span><br>
   <span style="color: #98c379;">[Datos Guardados]</span><br>
@@ -641,10 +642,11 @@ export function initGrafosLogic() {
   &nbsp;&nbsp;<span style="color: #56b6c2;">crearCanal</span>(a, b);<br>
   &nbsp;&nbsp;<span style="color: #56b6c2;">crearCanal</span>(b, a); <span style="color: #64748b;">// Simétrica: Abre el canal de vuelta automáticamente</span><br>
   }`,
-    `<span style="color: #64748b;">// Partición de Clases de Equivalencia (Grupos Disjuntos)</span><br>
-  <span style="color: #c678dd;">List</span>&lt;<span style="color: #e5c07b;">String</span>&gt; grupoFISC = [<span style="color: #98c379;">'Ana'</span>, <span style="color: #98c379;">'Carlos'</span>];<br>
-  <span style="color: #c678dd;">List</span>&lt;<span style="color: #e5c07b;">String</span>&gt; grupoCivil = [<span style="color: #98c379;">'Nieves'</span>];<br>
-  <span style="color: #64748b;">// Todos en FISC están relacionados entre sí de forma equivalente.</span>`
+    `<span style="color: #64748b;">// Relación: 'A y B estudian la misma carrera'</span><br>
+  <span style="color: #c678dd;">bool</span> <span style="color: #61afef;">mismaCarrera</span>(<span style="color: #e5c07b;">User</span> a, <span style="color: #e5c07b;">User</span> b) {<br>
+  &nbsp;&nbsp;<span style="color: #c678dd;">return</span> a.facultad == b.facultad;<br>
+  }<br>
+  <span style="color: #64748b;">// Al usar (==), se cumplen las 3 reglas y el sistema agrupa a los de Sistemas en un solo foro.</span>`
   ];
   
   const showSlide = (n: number) => {
