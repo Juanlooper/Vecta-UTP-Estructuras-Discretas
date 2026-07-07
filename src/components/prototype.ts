@@ -66,7 +66,7 @@ export function renderPrototype(): string {
                   <div style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-glass);">
                     <div style="color: white; font-weight: bold; margin-bottom: 1rem; font-size: 1.1rem;">Explorar Tutores <span style="font-size: 0.85rem; font-weight: normal; color: var(--text-secondary);">(Filtros A ∩ B)</span></div>
                     <div style="display: flex; gap: 1rem;">
-                      <input type="text" placeholder="Materia..." style="flex: 2; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--border-glass); background: rgba(0,0,0,0.5); color: white; outline: none;">
+                      <input id="proto-search-input" type="text" placeholder="Materia (ej. Álgebra, Cálculo)..." style="flex: 2; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--border-glass); background: rgba(0,0,0,0.5); color: white; outline: none;">
                       <select style="flex: 1; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--border-glass); background: rgba(0,0,0,0.5); color: white; outline: none;">
                         <option>FISC</option>
                       </select>
@@ -76,7 +76,7 @@ export function renderPrototype(): string {
 
                   <!-- Tutor Cards -->
                   <div style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
-                    <div style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-glass); display: flex; gap: 1.5rem; align-items: center;">
+                    <div class="proto-tutor-card" data-subject="álgebra lineal" style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-glass); display: flex; gap: 1.5rem; align-items: center;">
                       <div style="width: 50px; height: 50px; border-radius: 50%; background: #3b82f6; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white;">R</div>
                       <div style="flex: 1;">
                         <div style="color: white; font-weight: bold;">Roberto <span style="color: var(--text-secondary); font-size: 0.8rem; font-weight: normal;">(deg⁻ = 15)</span></div>
@@ -85,7 +85,7 @@ export function renderPrototype(): string {
                       <button class="proto-btn-solicitar" data-id="R" data-name="Roberto" data-subject="Álgebra Lineal" data-color="#3b82f6" style="padding: 0.6rem 1rem; border-radius: 6px; background: rgba(59, 130, 246, 0.2); color: #3b82f6; font-weight: bold; border: 1px solid #3b82f6; cursor: pointer; transition: all 0.3s;">Solicitar f(x)</button>
                     </div>
                     
-                    <div style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-glass); display: flex; gap: 1.5rem; align-items: center;">
+                    <div class="proto-tutor-card" data-subject="cálculo iii" style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-glass); display: flex; gap: 1.5rem; align-items: center;">
                       <div style="width: 50px; height: 50px; border-radius: 50%; background: #10b981; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white;">E</div>
                       <div style="flex: 1;">
                         <div style="color: white; font-weight: bold;">Elena <span style="color: var(--text-secondary); font-size: 0.8rem; font-weight: normal;">(deg⁻ = 8)</span></div>
@@ -240,13 +240,27 @@ export function initPrototypeLogic() {
     });
   });
 
-  if (btnBuscar) {
+  const searchInput = document.getElementById('proto-search-input') as HTMLInputElement | null;
+  const tutorCards = document.querySelectorAll('.proto-tutor-card');
+
+  if (btnBuscar && searchInput) {
     btnBuscar.addEventListener('click', () => {
       btnBuscar.innerText = 'Buscando...';
-      updateExplainer("Operación de Conjuntos: Intersección (A ∩ B).<br><br>Buscando el conjunto de tutores que intersecta con la Materia especificada Y la Facultad FISC.", "#f59e0b");
+      const query = searchInput.value.toLowerCase().trim();
+      
+      updateExplainer("Operación de Conjuntos: Intersección (A ∩ B).<br><br>Buscando tutores de FISC que intersectan con la materia especificada.", "#f59e0b");
+      
       setTimeout(() => {
         btnBuscar.innerText = 'Buscar';
-      }, 1000);
+        tutorCards.forEach(card => {
+          const subject = (card as HTMLElement).getAttribute('data-subject') || '';
+          if (query === '' || subject.includes(query)) {
+            (card as HTMLElement).style.display = 'flex';
+          } else {
+            (card as HTMLElement).style.display = 'none';
+          }
+        });
+      }, 600);
     });
   }
 
