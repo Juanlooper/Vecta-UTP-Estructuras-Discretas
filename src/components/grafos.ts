@@ -418,7 +418,7 @@ export function renderGrafos(): string {
                 <p style="margin-bottom: 0.5rem;"><strong>Matemática:</strong> Debe cumplir simultáneamente: Reflexiva + Simétrica + Transitiva</p>
                 <div style="background: rgba(168, 85, 247, 0.1); border-left: 4px solid var(--accent-primary); padding: 1rem; border-radius: 0 8px 8px 0; margin-top: 1.5rem;">
                   <strong style="color: var(--accent-primary);">Utilidad en Vecta:</strong><br>
-                  Foros por Facultad. La relación "estudia la misma carrera que" divide a los usuarios en grupos separados. Si Ana y Juan son de Sistemas, el algoritmo los agrupa en el mismo foro porque comparten esa "equivalencia".
+                  Salones de Tutoría. Compartir salón es una equivalencia. Reflexiva: Estás en tu propio salón. Simétrica: Si eres compañero de Juan, él lo es tuyo. Transitiva: Si eres compañero de Juan, y él de Oliver, tú eres compañero de Oliver.
                 </div>
               </div>
               
@@ -641,11 +641,11 @@ export function initGrafosLogic() {
   &nbsp;&nbsp;<span style="color: #56b6c2;">crearCanal</span>(a, b);<br>
   &nbsp;&nbsp;<span style="color: #56b6c2;">crearCanal</span>(b, a); <span style="color: #64748b;">// Simétrica: Abre el canal de vuelta automáticamente</span><br>
   }`,
-    `<span style="color: #64748b;">// Relación: 'A y B estudian la misma carrera'</span><br>
-  <span style="color: #c678dd;">bool</span> <span style="color: #61afef;">mismaCarrera</span>(<span style="color: #e5c07b;">User</span> a, <span style="color: #e5c07b;">User</span> b) {<br>
-  &nbsp;&nbsp;<span style="color: #c678dd;">return</span> a.facultad == b.facultad;<br>
+    `<span style="color: #64748b;">// Relación: 'A y B están en el mismo salón de tutoría'</span><br>
+  <span style="color: #c678dd;">bool</span> <span style="color: #61afef;">sonCompaneros</span>(<span style="color: #e5c07b;">User</span> a, <span style="color: #e5c07b;">User</span> b) {<br>
+  &nbsp;&nbsp;<span style="color: #c678dd;">return</span> a.idSalon == b.idSalon;<br>
   }<br>
-  <span style="color: #64748b;">// Al usar (==), se cumplen las 3 reglas y el sistema agrupa a los de Sistemas en un solo foro.</span>`
+  <span style="color: #64748b;">// Esta simple igualdad garantiza la Reflexividad, Simetría y Transitividad automáticamente.</span>`
   ];
   
   const showSlide = (n: number) => {
