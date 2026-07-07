@@ -7,6 +7,17 @@ export function renderPrototype(): string {
           Interactúa con el prototipo a la izquierda. La consola de la derecha te explicará en tiempo real qué concepto matemático discreto se está ejecutando detrás de cada acción.
         </p>
 
+        <!-- Conceptos Aplicados (Paneles discretos) -->
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; justify-content: center;">
+          <div style="background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3); color: #c4b5fd; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 500;">Conjuntos Universales</div>
+          <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: #6ee7b7; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 500;">Sucesiones y Gamificación</div>
+          <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); color: #fcd34d; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 500;">Matrices de Relación</div>
+          <div style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); color: #93c5fd; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 500;">Técnicas de Conteo</div>
+          <div style="background: rgba(236, 72, 153, 0.1); border: 1px solid rgba(236, 72, 153, 0.3); color: #f9a8d4; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 500;">Composición (g ∘ f)(x)</div>
+          <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); color: #fca5a5; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 500;">Grafos Dirigidos</div>
+          <div style="background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.3); color: #7dd3fc; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 500;">Grupo Abeliano Z₄</div>
+        </div>
+
         <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
           <!-- Mockup Container (Left) -->
           <div style="flex: 2; min-width: 600px; background: #0f172a; border-radius: 16px; overflow: hidden; border: 1px solid var(--border-glass); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); display: flex; flex-direction: column;">
