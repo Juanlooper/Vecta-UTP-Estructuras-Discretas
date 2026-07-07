@@ -192,7 +192,7 @@ export function renderGrafos(): string {
                 <p style="margin-bottom: 1.5rem;"><strong>Regla Matricial:</strong> Si M_ij = 1 ⇒ M_ji = 0</p>
                 <div style="background: rgba(139, 92, 246, 0.1); border-left: 4px solid var(--accent-primary); padding: 1rem; border-radius: 0 8px 8px 0;">
                   <strong style="color: var(--accent-primary);">Utilidad en Vecta:</strong><br>
-                  Tribunal de Baneos. Si el alumno A reporta al tutor B, las flechas de acusación van en un solo sentido. El sistema bloquea que B reporte a A como venganza inmediata.
+                  Jerarquía de Roles. Si el Coordinador A supervisa al Tutor B, el flujo de autoridad es de una sola vía. El sistema matemáticamente bloquea que el Tutor B pueda supervisar a su propio Coordinador.
                 </div>
               </div>
               
@@ -621,12 +621,11 @@ export function initGrafosLogic() {
     `<span style="color: #c678dd;">bool</span> <span style="color: #61afef;">esValida</span>(<span style="color: #e5c07b;">String</span> userId, <span style="color: #e5c07b;">String</span> targetId) {<br>
   &nbsp;&nbsp;<span style="color: #c678dd;">return</span> userId != targetId; <span style="color: #64748b;">// Irreflexiva: Evita auto-suscripción</span><br>
   }`,
-    `<span style="color: #c678dd;">Future</span>&lt;<span style="color: #c678dd;">void</span>&gt; <span style="color: #61afef;">procesarReporte</span>(<span style="color: #e5c07b;">String</span> idTutor, <span style="color: #e5c07b;">String</span> idAlumno) <span style="color: #c678dd;">async</span> {<br>
-  &nbsp;&nbsp;<span style="color: #c678dd;">bool</span> reportePrevio = <span style="color: #c678dd;">await</span> db.<span style="color: #56b6c2;">existeReporte</span>(idAlumno, idTutor);<br>
-  &nbsp;&nbsp;<span style="color: #c678dd;">if</span> (reportePrevio) {<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c678dd;">return</span> <span style="color: #56b6c2;">mostrarError</span>(<span style="color: #98c379;">'No puedes reportar a alguien que ya te reportó.'</span>);<br>
+    `<span style="color: #c678dd;">void</span> <span style="color: #61afef;">asignarSupervisor</span>(<span style="color: #e5c07b;">String</span> idJefe, <span style="color: #e5c07b;">String</span> idEmpleado) {<br>
+  &nbsp;&nbsp;<span style="color: #c678dd;">if</span> (<span style="color: #56b6c2;">esSupervisorDe</span>(idEmpleado, idJefe)) {<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c678dd;">return</span> <span style="color: #56b6c2;">mostrarError</span>(<span style="color: #98c379;">'Error de Jerarquía: Un empleado no puede supervisar a su propio jefe.'</span>);<br>
   &nbsp;&nbsp;}<br>
-  &nbsp;&nbsp;<span style="color: #c678dd;">await</span> db.<span style="color: #56b6c2;">crearReporte</span>(idTutor, idAlumno);<br>
+  &nbsp;&nbsp;db.<span style="color: #56b6c2;">guardarJerarquia</span>(idJefe, idEmpleado);<br>
   }`,
     `<span style="color: #64748b;">// Simulación de Inferencia en Base de Datos</span><br>
   <span style="color: #98c379;">[Datos Guardados]</span><br>
