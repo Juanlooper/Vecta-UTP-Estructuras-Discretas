@@ -16,8 +16,8 @@ app.innerHTML = `
     ${renderIntro()}
     ${renderSucesiones()}
     ${renderConteo()}
-    ${renderRepresentacion()}
     ${renderGrafos()}
+    ${renderRepresentacion()}
     ${renderFunciones()}
     ${renderAlgebra()}
     ${renderPrototype()}

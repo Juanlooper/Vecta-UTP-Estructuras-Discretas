@@ -93,7 +93,7 @@ export function renderGrafos(): string {
         
         <div style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem;">
           <strong style="color: #3b82f6;">Utilidad Práctica (Reglas de Negocio):</strong><br>
-          <span style="color: var(--text-secondary); font-size: 0.9rem;">Las propiedades matemáticas definen el comportamiento de las reglas del software. Si una relación es antisimétrica, se evitan reportes vengativos. Si es transitiva, se pueden programar motores de prerrequisitos académicos.</span>
+          <span style="color: var(--text-secondary); font-size: 0.9rem;">Cada relación fundamental tiene su utilidad práctica en las reglas de negocio del software, las cuales se explicarán a continuación en cada módulo interactivo.</span>
         </div>
 
         <div style="background: rgba(168, 85, 247, 0.1); border-left: 4px solid #a855f7; padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem;">
@@ -101,6 +101,7 @@ export function renderGrafos(): string {
           <span style="color: var(--text-secondary); font-size: 0.9rem;">
             Sea R una relación sobre A:
             <ul style="margin-top: 0.5rem; margin-bottom: 0; padding-left: 1.5rem;">
+              <li><strong>Reflexiva:</strong> ∀x ∈ A, (x,x) ∈ R. Bucles en cada nodo.</li>
               <li><strong>Irreflexiva:</strong> ∀x ∈ A, (x,x) ∉ R. (Ej. un tutor no puede auto-reservarse).</li>
               <li><strong>Antisimétrica:</strong> Si (x,y) ∈ R ⇒ (y,x) ∉ R. Flechas en un sentido.</li>
               <li><strong>Transitiva:</strong> (x,y) ∈ R ∧ (y,z) ∈ R ⇒ (x,z) ∈ R.</li>
@@ -110,23 +111,19 @@ export function renderGrafos(): string {
           </span>
         </div>
 
-        <div style="background: #000; padding: 1rem; border-radius: 8px; font-family: monospace; color: var(--text-secondary); margin-bottom: 1.5rem; border: 1px solid rgba(255,255,255,0.1);">
-          <span style="color: #c678dd;">bool</span> <span style="color: #61afef;">esAntisimetrica</span>(<span style="color: #e5c07b;">String</span> a, <span style="color: #e5c07b;">String</span> b, <span style="color: #e5c07b;">List</span>&lt;<span style="color: #e5c07b;">Map</span>&gt; reps) {<br>
-          &nbsp;&nbsp;<span style="color: #c678dd;">bool</span> aRb = reps.<span style="color: #56b6c2;">any</span>((r) =&gt; r[<span style="color: #98c379;">'o'</span>] == a &amp;&amp; r[<span style="color: #98c379;">'d'</span>] == b);<br>
-          &nbsp;&nbsp;<span style="color: #c678dd;">bool</span> bRa = reps.<span style="color: #56b6c2;">any</span>((r) =&gt; r[<span style="color: #98c379;">'o'</span>] == b &amp;&amp; r[<span style="color: #98c379;">'d'</span>] == a);<br>
-          &nbsp;&nbsp;<span style="color: #c678dd;">return</span> !(aRb &amp;&amp; bRa); <span style="color: #64748b;">// Si A reporta a B, B no puede a A</span><br>
-          }
+        <div id="dynamic-code" style="background: #000; padding: 1rem; border-radius: 8px; font-family: monospace; color: var(--text-secondary); margin-bottom: 1.5rem; border: 1px solid rgba(255,255,255,0.1); min-height: 80px;">
+          <!-- Dynamic code populated by JS -->
         </div>
 
         <div style="background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-glass); position: relative;">
           
           <svg style="width:0; height:0; position:absolute;">
             <defs>
-              <marker id="white-arrow" markerWidth="8" markerHeight="8" refX="22" refY="4" orient="auto">
-                <polygon points="0 0, 8 4, 0 8" fill="#ffffff" />
+              <marker id="white-arrow" markerWidth="6" markerHeight="6" refX="18" refY="3" orient="auto">
+                <polygon points="0 0, 6 3, 0 6" fill="#ffffff" />
               </marker>
-              <marker id="white-arrow-loop" markerWidth="8" markerHeight="8" refX="14" refY="4" orient="auto">
-                <polygon points="0 0, 8 4, 0 8" fill="#ffffff" />
+              <marker id="white-arrow-loop" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                <polygon points="0 0, 6 3, 0 6" fill="#ffffff" />
               </marker>
             </defs>
           </svg>
@@ -253,7 +250,7 @@ export function renderGrafos(): string {
                 <p style="margin-bottom: 1.5rem;"><strong>Regla Matricial:</strong> Si M_ij = 1 ∧ M_jk = 1 ⇒ M_ik = 1</p>
                 <div style="background: rgba(139, 92, 246, 0.1); border-left: 4px solid var(--accent-primary); padding: 1rem; border-radius: 0 8px 8px 0;">
                   <strong style="color: var(--accent-primary);">Utilidad en Vecta:</strong><br>
-                  Motor de Prerrequisitos. Si Cálculo II requiere Cálculo I, y Cálculo III requiere Cálculo II, el sistema sabe transitivamente que Cálculo III requiere Cálculo I.
+                  Algoritmo de Compañeros. Si Oliver es compañero de Juan, y Nieves es compañera de Oliver, el sistema deduce transitivamente que Nieves es compañera de Juan sin tener que comparar a Nieves directamente con Juan.
                 </div>
               </div>
               
@@ -523,6 +520,9 @@ export function initGrafosLogic() {
       <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="28" refY="3.5" orient="auto">
         <polygon points="0 0, 10 3.5, 0 7" fill="var(--accent-primary)" />
       </marker>
+      <marker id="arrowhead-loop" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="var(--accent-primary)" />
+      </marker>
     </defs>`;
     
     for(let i = 0; i < 3; i++) {
@@ -535,7 +535,7 @@ export function initGrafosLogic() {
           
           if(i === j) {
             // self loop
-            svgEdges.innerHTML += `<path d="M ${oPos.x} ${oPos.y - 15} C ${oPos.x - 40} ${oPos.y - 60}, ${oPos.x + 40} ${oPos.y - 60}, ${oPos.x} ${oPos.y - 15}" fill="none" stroke="var(--accent-primary)" stroke-width="2" marker-end="url(#arrowhead)" />`;
+            svgEdges.innerHTML += `<path d="M ${oPos.x - 10} ${oPos.y - 20} C ${oPos.x - 40} ${oPos.y - 70}, ${oPos.x + 40} ${oPos.y - 70}, ${oPos.x + 12} ${oPos.y - 23}" fill="none" stroke="var(--accent-primary)" stroke-width="2" marker-end="url(#arrowhead-loop)" />`;
           } else {
             // Check if reverse exists for curved line
             const curveFactor = matrix[j][i] === 1 ? 20 : 0;
@@ -616,13 +616,48 @@ export function initGrafosLogic() {
   let currentSlide = 1;
   const totalSlides = 6;
   const slideCounter = document.getElementById('slide-counter')!;
+  const dynamicCodeBlock = document.getElementById('dynamic-code')!;
+
+  const codeSnippets = [
+    `<span style="color: #c678dd;">bool</span> <span style="color: #61afef;">esValida</span>(<span style="color: #e5c07b;">String</span> userId, <span style="color: #e5c07b;">String</span> targetId) {<br>
+  &nbsp;&nbsp;<span style="color: #c678dd;">return</span> userId != targetId; <span style="color: #64748b;">// Irreflexiva: Evita auto-suscripción</span><br>
+  }`,
+    `<span style="color: #c678dd;">bool</span> <span style="color: #61afef;">esAntisimetrica</span>(<span style="color: #e5c07b;">String</span> a, <span style="color: #e5c07b;">String</span> b, <span style="color: #e5c07b;">List</span>&lt;<span style="color: #e5c07b;">Map</span>&gt; reps) {<br>
+  &nbsp;&nbsp;<span style="color: #c678dd;">bool</span> aRb = reps.<span style="color: #56b6c2;">any</span>((r) =&gt; r[<span style="color: #98c379;">'o'</span>] == a &amp;&amp; r[<span style="color: #98c379;">'d'</span>] == b);<br>
+  &nbsp;&nbsp;<span style="color: #c678dd;">bool</span> bRa = reps.<span style="color: #56b6c2;">any</span>((r) =&gt; r[<span style="color: #98c379;">'o'</span>] == b &amp;&amp; r[<span style="color: #98c379;">'d'</span>] == a);<br>
+  &nbsp;&nbsp;<span style="color: #c678dd;">return</span> !(aRb &amp;&amp; bRa); <span style="color: #64748b;">// Si A reporta a B, B no puede a A</span><br>
+  }`,
+    `<span style="color: #64748b;">// Simulación de Inferencia en Base de Datos</span><br>
+  <span style="color: #98c379;">[Datos Guardados]</span><br>
+  Oliver <span style="color: #c678dd;">-&gt;</span> es_compañero_de <span style="color: #c678dd;">-&gt;</span> Juan<br>
+  Nieves <span style="color: #c678dd;">-&gt;</span> es_compañero_de <span style="color: #c678dd;">-&gt;</span> Oliver<br>
+  <br>
+  <span style="color: #98c379;">[Motor de Inferencia Transitiva]</span><br>
+  <span style="color: #e5c07b;">=&gt;</span> Nieves <span style="color: #c678dd;">-&gt;</span> es_compañero_de <span style="color: #c678dd;">-&gt;</span> Juan <span style="color: #64748b;">(Inferido automáticamente)</span>`,
+    `<span style="color: #c678dd;">bool</span> <span style="color: #61afef;">tienePermiso</span>(<span style="color: #e5c07b;">String</span> recursoId, <span style="color: #e5c07b;">String</span> authUid) {<br>
+  &nbsp;&nbsp;<span style="color: #c678dd;">return</span> recursoId == authUid; <span style="color: #64748b;">// Reflexiva: El usuario es dueño de su cuenta</span><br>
+  }`,
+    `<span style="color: #c678dd;">void</span> <span style="color: #61afef;">abrirChat</span>(<span style="color: #e5c07b;">String</span> a, <span style="color: #e5c07b;">String</span> b) {<br>
+  &nbsp;&nbsp;<span style="color: #56b6c2;">crearCanal</span>(a, b);<br>
+  &nbsp;&nbsp;<span style="color: #56b6c2;">crearCanal</span>(b, a); <span style="color: #64748b;">// Simétrica: Abre el canal de vuelta automáticamente</span><br>
+  }`,
+    `<span style="color: #64748b;">// Partición de Clases de Equivalencia (Grupos Disjuntos)</span><br>
+  <span style="color: #c678dd;">List</span>&lt;<span style="color: #e5c07b;">String</span>&gt; grupoFISC = [<span style="color: #98c379;">'Ana'</span>, <span style="color: #98c379;">'Carlos'</span>];<br>
+  <span style="color: #c678dd;">List</span>&lt;<span style="color: #e5c07b;">String</span>&gt; grupoCivil = [<span style="color: #98c379;">'Nieves'</span>];<br>
+  <span style="color: #64748b;">// Todos en FISC están relacionados entre sí de forma equivalente.</span>`
+  ];
   
   const showSlide = (n: number) => {
     for(let i=1; i<=totalSlides; i++) {
       document.getElementById(`prop-slide-${i}`)!.style.display = i === n ? 'block' : 'none';
     }
     slideCounter.innerText = `${n} / ${totalSlides}`;
+    if (dynamicCodeBlock) {
+      dynamicCodeBlock.innerHTML = codeSnippets[n-1];
+    }
   };
+
+  showSlide(currentSlide);
 
   document.getElementById('btn-prev-slide')!.addEventListener('click', () => {
     currentSlide = currentSlide > 1 ? currentSlide - 1 : totalSlides;

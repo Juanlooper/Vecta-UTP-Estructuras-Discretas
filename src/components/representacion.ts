@@ -2,7 +2,7 @@ export function renderRepresentacion(): string {
   return `
     <section id="representacion" class="section">
       <div style="text-align: center; margin-bottom: 3rem;">
-        <h2 style="font-size: 2.5rem; margin-bottom: 1rem;"><span style="color: #10b981;">03.</span> Representación Computacional (Matriz de Relación y Código)</h2>
+        <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Representación Computacional (Matriz de Relación y Código)</h2>
         <p style="color: var(--text-secondary); max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.6;">
           La Matriz de Relación (MR) funciona bajo una regla booleana simple: siempre que exista un 1 hay relación, de lo contrario es 0. 
           Aplicaremos esto al <strong>Registro de Asistencia</strong> de las clases del tutor Roberto.
